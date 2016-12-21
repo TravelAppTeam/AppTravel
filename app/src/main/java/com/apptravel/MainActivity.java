@@ -14,5 +14,8 @@ public class MainActivity extends AppCompatActivity {
         //haha
 
         Log.i("ahihi", "Tít");
+
+        Log.i("ahiihi", "Bướm");
+
     }
 }
