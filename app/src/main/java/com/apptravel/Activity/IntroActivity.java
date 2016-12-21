@@ -70,7 +70,7 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     private void savePrefIntro() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("FirstLauch", false);
+        editor.putBoolean(INTRO_PREF_ID, false);
         editor.apply();
         editor.commit();
     }
