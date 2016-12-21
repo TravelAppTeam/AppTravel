@@ -17,15 +17,19 @@
 package com.apptravel.SlidingTab;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
@@ -173,6 +177,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
+        textView.setTextColor(Color.WHITE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // If we're running on Honeycomb or newer, then we can use the Theme's
@@ -190,6 +195,14 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
+
+        //Setting item of sliding
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        textView.setWidth(size.x / 2);
 
         return textView;
     }
