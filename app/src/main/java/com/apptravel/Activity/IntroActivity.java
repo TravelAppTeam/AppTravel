@@ -30,6 +30,7 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         boolean isFirstLaunch = loadSavedPreferances();
+        Log.d("test", isFirstLaunch + "");
         if(isFirstLaunch)
             savePrefIntro();
         else
@@ -71,6 +72,7 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("FirstLauch", false);
         editor.apply();
+        editor.commit();
     }
 
     public void onSkip(View v) {
