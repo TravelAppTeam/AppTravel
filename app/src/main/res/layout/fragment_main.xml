@@ -4,10 +4,26 @@
     android:layout_height="match_parent"
     tools:context="com.apptravel.Fragment.MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <com.apptravel.SlidingTab.SlidingTabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="true"
+            android:id="@+id/slidingTab"
+            android:background="@color/colorPrimary">
+        </com.apptravel.SlidingTab.SlidingTabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/viewPager">
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
 
 </FrameLayout>
