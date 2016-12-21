@@ -5,7 +5,7 @@
     android:id="@+id/activity_intro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.apptravel.IntroActivity">
+    tools:context="com.apptravel.Activity.IntroActivity">
 
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider"
