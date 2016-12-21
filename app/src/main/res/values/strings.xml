@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">AppTravel</string>
+    <string name="Skip">Skip</string>
+    <string name="done">Done</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
