@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.apptravel.Fragment.MainFragment">
 
     <LinearLayout
@@ -9,13 +10,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.apptravel.SlidingTab.SlidingTabLayout
+        <com.astuetz.PagerSlidingTabStrip
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="true"
+            android:layout_height="48dp"
             android:id="@+id/slidingTab"
+            app:pstsTextAllCaps="false"
+            app:pstsShouldExpand="true"
+            android:textSize="14sp"
             android:background="@color/colorPrimary">
-        </com.apptravel.SlidingTab.SlidingTabLayout>
+        </com.astuetz.PagerSlidingTabStrip>
+
 
         <android.support.v4.view.ViewPager
             android:layout_width="match_parent"

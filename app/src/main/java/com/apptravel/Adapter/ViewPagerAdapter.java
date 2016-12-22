@@ -1,22 +1,36 @@
 package com.apptravel.Adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableWrapper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 
 import com.apptravel.Fragment.HomeFragment;
 import com.apptravel.Fragment.SearchFragment;
+import com.apptravel.R;
+import com.astuetz.PagerSlidingTabStrip;
 
 /**
  * Created by vungho on 21/12/2016.
  */
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider{
+
     private static final int numPage = 2;
     private String[] namePage;
-    public ViewPagerAdapter(FragmentManager fm, String[] namePage) {
+    private int[] imgResID = {R.drawable.ic_home, R.drawable.ic_search};
+    private Context context;
+
+    public ViewPagerAdapter(FragmentManager fm, String[] namePage, Context context) {
         super(fm);
         this.namePage = namePage;
+        this.context = context;
     }
 
     @Override
@@ -38,5 +52,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return namePage[position];
+    }
+
+
+    @Override
+    public int getPageIconResId(int position) {
+        return imgResID[position];
     }
 }

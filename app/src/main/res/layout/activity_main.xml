@@ -18,8 +18,56 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:paddingTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--
+            <include
+                layout="@layout/nav_header_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+             -->
+
+            <TextView
+                android:textColor="#636363"
+                android:text="@string/menu_connect"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="Roboto Regular"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:textSize="17sp"/>
+
+            <ListView
+                android:id="@+id/list_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c8e6c9"/>
+            <TextView
+                android:textColor="#636363"
+                android:text="@string/menu_info"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="Roboto Regular"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:textSize="17sp"/>
+            <ListView
+                android:id="@+id/list_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
