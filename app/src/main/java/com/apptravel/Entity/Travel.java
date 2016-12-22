@@ -1,4 +1,4 @@
-package com.apptravel.Models;
+package com.apptravel.Entity;
 
 /**
  * Created by Le on 22-Dec-16.

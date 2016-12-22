@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 
-import com.apptravel.Models.Travel;
+import com.apptravel.Entity.Travel;
+import com.apptravel.Events.MyChildEventListener;
 import com.apptravel.R;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;

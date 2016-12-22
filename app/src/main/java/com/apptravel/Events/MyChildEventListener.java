@@ -1,4 +1,4 @@
-package com.apptravel.Databases;
+package com.apptravel.Events;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
