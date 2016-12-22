@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">AppTravel</string>
-    <string name="skip">Skip</string>
+    <string name="Skip">Skip</string>
     <string name="done">Done</string>
     <string name="recommended_place">Recommended Place</string>
 
@@ -104,9 +104,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Drawer name -->
+    <string name="menu_connect">Connect</string>
+    <string name="menu_info">Infomation</string>
 
+    <!-- sling tab title -->
     <string-array name="sliding_tab">
         <item>Home</item>
         <item>Search</item>
     </string-array>
+
+    <!-- Drawer menu -->
+    <string name="menu_user">My Account</string>
+    <string name="menu_youtube">Youtube change</string>
+    <string name="menu_facebook">Facebook page</string>
+    <string name="menu_about_us">About us</string>
+    <string name="menu_about_app">About application</string>
+
 </resources>

@@ -1,18 +1,22 @@
 package com.apptravel.Fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.apptravel.Activity.MainActivity;
 import com.apptravel.Adapter.ViewPagerAdapter;
 import com.apptravel.R;
-import com.apptravel.SlidingTab.SlidingTabLayout;
+import com.astuetz.PagerSlidingTabStrip;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +36,7 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private SlidingTabLayout mSlidingTabLayout;
+    private PagerSlidingTabStrip mSlidingTabLayout;
     private ViewPager mViewPager;
     private String[] pageTile;
 
@@ -85,11 +89,30 @@ public class MainFragment extends Fragment {
 
         //config viewpager
         mViewPager = (ViewPager)view.findViewById(R.id.viewPager);
-        mViewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager(), pageTile));
+        mViewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager(), pageTile, getContext()));
 
         //config viewpager
-        mSlidingTabLayout = (SlidingTabLayout)view.findViewById(R.id.slidingTab);
+        mSlidingTabLayout = (PagerSlidingTabStrip) view.findViewById(R.id.slidingTab);
+        mSlidingTabLayout.setTextColor(Color.WHITE);
+        mSlidingTabLayout.setIndicatorColor(Color.WHITE);
         mSlidingTabLayout.setViewPager(mViewPager);
+
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                MainActivity.toolbar.setTitle(pageTile[position]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

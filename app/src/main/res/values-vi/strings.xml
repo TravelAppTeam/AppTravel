@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">AppTravel</string>
-    <string name="skip">Bỏ qua</string>
+    <string name="Skip">Bỏ qua</string>
     <string name="done">Hoàn Thành</string>
     <string name="recommended_place">Đề xuất khu du lịch</string>
+    <string name="menu_about_app">Thông tin ứng dụng</string>
+    <string name="menu_about_us">Thông tin nhóm phát triển</string>
+    <string name="menu_connect">Kết nối</string>
+    <string name="menu_facebook">Trang Facebook</string>
+    <string name="menu_info">Thông tin</string>
+    <string name="menu_user">Tài khoảng</string>
+    <string name="menu_youtube">Kênh Youtube</string>
 </resources>
