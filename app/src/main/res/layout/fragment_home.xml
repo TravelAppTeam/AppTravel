@@ -2,12 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     tools:context="com.apptravel.Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home" />
+        style="@style/QText"
+        android:text="@string/recommended_place" />
+
+    <com.daimajia.slider.library.SliderLayout
+        android:padding="5dp"
+        android:id="@+id/sliderfragment"
+        android:layout_width="match_parent"
+        custom:pager_animation="Accordion"
+        custom:pager_animation_span="1000"
+        custom:auto_cycle="true"
+        custom:indicator_visibility="invisible"
+        android:layout_height="200dp"/>
 
 </FrameLayout>

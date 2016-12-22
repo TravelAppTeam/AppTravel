@@ -1,13 +1,14 @@
 package com.apptravel.Fragment;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apptravel.Databases.MyFireBaseDatabase;
 import com.apptravel.R;
 
 /**
@@ -24,6 +25,10 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private String[] img = {"https://firebasestorage.googleapis.com/v0/b/travelapp-e4b5c.appspot.com/o/220px-ThienMuPagoda.jpg?alt=media&token=7e20bc39-65bf-440a-8429-2f2d047124ca",
+            "https://firebasestorage.googleapis.com/v0/b/travelapp-e4b5c.appspot.com/o/Vinh-Ha-Long.jpg?alt=media&token=8563d674-2100-4d18-81a6-e15b7bc0410c",
+            "https://firebasestorage.googleapis.com/v0/b/travelapp-e4b5c.appspot.com/o/big-sky-.jpg?alt=media&token=e8194c8d-a4dc-44dd-970f-1add31823104"};
+    private static final String TAG = HomeFragment.class.getSimpleName();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -68,14 +73,18 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        new MyFireBaseDatabase(getActivity(), view).getAllData();
+
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-
 
     @Override
     public void onDetach() {
