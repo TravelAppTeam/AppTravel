@@ -19,22 +19,32 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPageChangeListener {
 
+    private static final String TAG = IntroActivity.class.getSimpleName();
     private static final String INTRO_PREF_ID = "FirstLaunch";
     int[] listImg = {R.drawable.intro_img_1, R.drawable.intro_img_2, R.drawable.intro_img_3};
     private SliderLayout mSlider;
     private ImageView imNext;
     private boolean isLastIndicator = false;
+    private Boolean fromAboutApp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         boolean isFirstLaunch = loadSavedPreferances();
-        Log.d("test", isFirstLaunch + "");
-        if(isFirstLaunch)
-            savePrefIntro();
-        else
-            changeActivity();
+        try {
+            fromAboutApp = getIntent().getExtras().getBoolean(MainActivity.INTRO_BUNDLE_KEY);
+        }catch (Exception e){
+            Log.e(TAG, "First times open activity");
+            fromAboutApp = false;
+        }
+        if (!fromAboutApp) {
+            if (isFirstLaunch) {
+                savePrefIntro();
+            } else {
+                changeActivity();
+            }
+        }
 
         mSlider = (SliderLayout) findViewById(R.id.slider);
         imNext = (ImageView) findViewById(R.id.im_next);
