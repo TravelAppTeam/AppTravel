@@ -20,17 +20,17 @@ import com.astuetz.PagerSlidingTabStrip;
  * Created by vungho on 21/12/2016.
  */
 
-public class ViewPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider{
+public class ViewPagerAdapter extends FragmentPagerAdapter{
 
     private static final int numPage = 2;
     private String[] namePage;
     private int[] imgResID = {R.drawable.ic_home, R.drawable.ic_search};
     private Context context;
 
-    public ViewPagerAdapter(FragmentManager fm, String[] namePage, Context context) {
+    public ViewPagerAdapter(FragmentManager fm, String[] namePage) {
         super(fm);
         this.namePage = namePage;
-        this.context = context;
+
     }
 
     @Override
@@ -54,9 +54,4 @@ public class ViewPagerAdapter extends FragmentPagerAdapter implements PagerSlidi
         return namePage[position];
     }
 
-
-    @Override
-    public int getPageIconResId(int position) {
-        return imgResID[position];
-    }
 }

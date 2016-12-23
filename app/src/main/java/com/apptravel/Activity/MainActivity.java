@@ -2,8 +2,8 @@ package com.apptravel.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,8 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.apptravel.Adapter.DrawerMenuAdapter;
+import com.apptravel.Adapter.ViewPagerAdapter;
 import com.apptravel.Entity.DrawerMenuInfo;
-import com.apptravel.Fragment.MainFragment;
 import com.apptravel.R;
 
 import java.util.ArrayList;
@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<DrawerMenuInfo> userInfos;
     private ArrayList<DrawerMenuInfo> aboutInfos;
     public static Toolbar toolbar;
+    private ViewPager mViewPager;
+    private ViewPagerAdapter mViewPagerAdapter;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(getResources().getStringArray(R.array.sliding_tab)[0]);
 
         configDrawer();
-        configFragment();
+        configViewPager();
 
 
 
@@ -99,13 +102,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    private void configViewPager() {
+        mViewPager = (ViewPager)findViewById(R.id.viewPager);
+        mTabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
+                                getResources().getStringArray(R.array.sliding_tab));
 
-    private void configFragment() {
-
-        Fragment mainFragment = new MainFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_main, mainFragment).commit();
+        mViewPager.setAdapter(mViewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
     private void configDrawer(){
         //Config user list
