@@ -24,6 +24,9 @@ import com.apptravel.R;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    public final static String INTRO_BUNDLE_KEY= "intro bundle key";
+
     private ListView listUser;
     private ListView listAbout;
     private DrawerMenuAdapter userAdapter;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
                     case 0:
                         Intent appIntent = new Intent(MainActivity.this, IntroActivity.class);
+                        appIntent.putExtra(INTRO_BUNDLE_KEY,true);
                         startActivity(appIntent);
                         break;
                     case 1:
@@ -135,4 +139,6 @@ public class MainActivity extends AppCompatActivity {
         aboutAdapter = new DrawerMenuAdapter(this, R.layout.item_menu, aboutInfos);
         listAbout.setAdapter(aboutAdapter);
     }
+
+
 }
