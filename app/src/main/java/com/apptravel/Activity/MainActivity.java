@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout = (TabLayout)findViewById(R.id.tabLayout);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
-                                getResources().getStringArray(R.array.sliding_tab));
+                                getResources().getStringArray(R.array.sliding_tab), this);
 
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
