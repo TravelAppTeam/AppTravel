@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="3dp"
     tools:context="com.apptravel.Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <TextView
             android:id="@+id/tv_recommended"
             style="@style/QText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/recommended_place" />
 
         <com.daimajia.slider.library.SliderLayout
@@ -27,5 +27,19 @@
             custom:indicator_visibility="invisible"
             custom:pager_animation="Accordion"
             custom:pager_animation_span="1000" />
+        <TextView
+            android:id="@+id/tv_most_view_place"
+            style="@style/QText"
+            android:text="@string/most_view_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sliderfragment"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_most_view_place"
+            android:layout_below="@id/tv_most_view_place"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="3dp"/>
     </RelativeLayout>
 </FrameLayout>

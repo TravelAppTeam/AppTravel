@@ -3,6 +3,7 @@
     <string name="skip">Skip</string>
     <string name="done">Done</string>
     <string name="recommended_place">Recommended Place</string>
+    <string name="most_view_place">Most View Place</string>
 
     <string name="title_activity_main">MainActivity</string>
 
@@ -120,5 +121,6 @@
     <string name="menu_facebook">Facebook page</string>
     <string name="menu_about_us">About us</string>
     <string name="menu_about_app">About application</string>
+
 
 </resources>
