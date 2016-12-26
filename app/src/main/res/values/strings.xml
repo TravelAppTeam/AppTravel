@@ -123,4 +123,7 @@
     <string name="menu_about_app">About application</string>
 
 
+    <!-- Transition Name -->
+    <string name="transition_image">image transition</string>
+    <string name="transition_text">text transition</string>
 </resources>

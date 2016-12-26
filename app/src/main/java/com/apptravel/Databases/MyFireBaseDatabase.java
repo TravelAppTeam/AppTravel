@@ -32,25 +32,34 @@ public class MyFireBaseDatabase {
 
     private final static String TAG = MyFireBaseDatabase.class.getSimpleName();
     private final static String URL_DULICH_TAG = "DuLich";
+    private final static String URL_DULICH_RECOMMENDED_TAG = "DuLichDeXuat";
     private final static int MOSTVIEW_COLUMN = 3;
 
     private View view;
     private Activity activity;
     private DatabaseReference database;
-    private ArrayList<Travel> listTravel;
+    private ArrayList<Travel> listRecommendedTravel;
+    private ArrayList<Travel> listMostViewTravel;
     private SliderLayout mSlider;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mReAdapter;
+
     private ChildEventListener recommendedEventListener = new MyChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Travel travel = dataSnapshot.getValue(Travel.class);
-            listTravel.add(travel);
+            listRecommendedTravel.add(travel);
             showRecommendedData(travel);
-            showMostViewData(listTravel);
         }
     };
-
+    private ChildEventListener mostViewEventListener = new MyChildEventListener(){
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            Travel travel = dataSnapshot.getValue(Travel.class);
+            listMostViewTravel.add(travel);
+            showMostViewData(listMostViewTravel);
+        }
+    } ;
     private void showRecommendedData(Travel travel) {
         if (travel != null) {
             CustomTextSliderView sliderView = new CustomTextSliderView(activity);
@@ -75,13 +84,13 @@ public class MyFireBaseDatabase {
         this.activity = activity;
         this.view = v;
         database = FirebaseDatabase.getInstance().getReference();
-        listTravel = new ArrayList<>();
-
+        listRecommendedTravel = new ArrayList<>();
+        listMostViewTravel = new ArrayList<>();
         mSlider = (SliderLayout) view.findViewById(R.id.sliderfragment);
         settingSliderView();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_most_view_place);
-        mReAdapter = new MostViewAdapter(view.getContext(), listTravel);
+        mReAdapter = new MostViewAdapter(view.getContext(), listMostViewTravel);
         settingRecyclerView();
     }
 
@@ -95,7 +104,11 @@ public class MyFireBaseDatabase {
         mSlider.setDuration(4000);
         mSlider.setCustomAnimation(new DescriptionAnimation());
     }
-    public void getData() {
-        database.child(URL_DULICH_TAG).addChildEventListener(recommendedEventListener);
+
+    public void getDataRecommended() {
+        database.child(URL_DULICH_RECOMMENDED_TAG).addChildEventListener(recommendedEventListener);
+    }
+    public void getDataMostView() {
+        database.child(URL_DULICH_TAG).addChildEventListener(mostViewEventListener);
     }
 }
