@@ -38,13 +38,22 @@ public class DrawerMenuAdapter extends ArrayAdapter<DrawerMenuInfo> {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(layout, null);
 
-        ImageView imgAvatar = (ImageView)convertView.findViewById(R.id.imgDrawerMenu);
-        TextView txtName = (TextView)convertView.findViewById(R.id.txtDrawerMenu);
+        MenuViewHolder menuViewHolder = new MenuViewHolder();
+
+        menuViewHolder.imgAvatar = (ImageView)convertView.findViewById(R.id.imgDrawerMenu);
+        menuViewHolder.txtName = (TextView)convertView.findViewById(R.id.txtDrawerMenu);
 
         DrawerMenuInfo item = list.get(position);
-        txtName.setText(item.getName());
-        Picasso.with(this.getContext()).load(item.getId()).centerCrop().fit().into(imgAvatar);
+        menuViewHolder.txtName.setText(item.getName());
+        Picasso.with(this.getContext()).load(item.getId()).centerCrop().fit()
+                                                            .into(menuViewHolder.imgAvatar);
 
+        convertView.setTag(menuViewHolder);
         return convertView;
+    }
+
+     static class MenuViewHolder {
+        ImageView imgAvatar;
+        TextView txtName;
     }
 }
