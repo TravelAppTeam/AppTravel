@@ -18,25 +18,20 @@ import com.apptravel.R;
 import java.util.ArrayList;
 
 /**
- * Created by Le on 23-Dec-16.
+ * Created by lldti on 27-Dec-16.
  */
 
-public class MostViewAdapter extends MyRecyclerViewAdapter {
+public class SearchTravelAdapter extends MyRecyclerViewAdapter {
 
-    public MostViewAdapter(Context mContext, ArrayList<Travel> listTravel) {
+    public SearchTravelAdapter(Context mContext, ArrayList<Travel> listTravel) {
         super(mContext, listTravel);
     }
 
     @Override
     public RecycleAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.adapter_card_mostview, parent, false);
+                .inflate(R.layout.adapter_card_search_travel, parent, false);
         return new RecycleAdapterHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(RecycleAdapterHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
     }
 
     @Override
@@ -55,6 +50,11 @@ public class MostViewAdapter extends MyRecyclerViewAdapter {
         } else{
             mContext.startActivity(it);
         }
+    }
+
+    @Override
+    public void onBindViewHolder(RecycleAdapterHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
     }
 
     @Override

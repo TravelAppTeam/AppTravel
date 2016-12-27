@@ -15,8 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
     <TextView
-        android:id="@+id/tv_content_travel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/iv_content_travel"/>
+        android:id="@+id/tv_content_travel_ten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_content_travel"
+        style="@style/QText"/>
+    <TextView
+        android:id="@+id/tv_content_travel_mota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_content_travel_ten"
+        style="@style/SText"/>
 </RelativeLayout>

@@ -4,7 +4,7 @@
     <string name="done">Done</string>
     <string name="recommended_place">Recommended Place</string>
     <string name="most_view_place">Most View Place</string>
-
+    <string name="destination_domestic_travel">Destination, Domestic travel</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
