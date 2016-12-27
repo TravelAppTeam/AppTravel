@@ -12,21 +12,22 @@
         <EditText
             android:id="@+id/edt_search_view"
             style="@style/SearchText"
-            android:background="@drawable/search_view_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:background="@drawable/search_view_bar"
+            android:padding="10dp" />
 
-        <ScrollView
-            android:layout_below="@+id/edt_search_view"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search_travel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="true">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_search_travel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="3dp"/>
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_search_view"
+            android:padding="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_search_travel"
+            android:text="gido" />
     </RelativeLayout>
 </FrameLayout>

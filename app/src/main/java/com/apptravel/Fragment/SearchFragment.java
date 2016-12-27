@@ -3,11 +3,16 @@ package com.apptravel.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import com.apptravel.Databases.MyFireBaseDatabase;
+import com.apptravel.Events.MySearchTextChange;
 import com.apptravel.R;
 
 /**
@@ -29,7 +34,8 @@ public class SearchFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    private RecyclerView mSearchView;
+    private EditText edtSearchView;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -59,6 +65,21 @@ public class SearchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        mSearchView = (RecyclerView) view.findViewById(R.id.rv_search_travel);
+        final MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view, mSearchView);
+
+        edtSearchView = (EditText) view.findViewById(R.id.edt_search_view);
+        edtSearchView.addTextChangedListener(new MySearchTextChange(){
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                myFireBaseDatabase.getSearchDataByName(charSequence.toString());
+            }
+        });
+
     }
 
     @Override

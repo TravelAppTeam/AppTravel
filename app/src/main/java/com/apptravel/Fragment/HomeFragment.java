@@ -4,12 +4,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.apptravel.Databases.MyFireBaseDatabase;
 import com.apptravel.R;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +34,9 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private SliderLayout mSlider;
+    private RecyclerView mReMostView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -72,10 +78,22 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view);
+        mSlider = (SliderLayout) view.findViewById(R.id.sliderfragment);
+        settingSliderView();
+
+        mReMostView = (RecyclerView) view.findViewById(R.id.rv_most_view_place);
+        MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view, mSlider, mReMostView);
         myFireBaseDatabase.getDataMostView();
         myFireBaseDatabase.getDataRecommended();
     }
+
+
+    private void settingSliderView(){
+        mSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        mSlider.setDuration(4000);
+        mSlider.setCustomAnimation(new DescriptionAnimation());
+    }
+
 
 
     // TODO: Rename method, update argument and hook method into UI event

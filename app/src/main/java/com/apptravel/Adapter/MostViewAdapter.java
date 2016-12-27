@@ -40,7 +40,7 @@ public class MostViewAdapter extends MyRecyclerViewAdapter {
     }
 
     @Override
-    void showContentTravelActivity(View view, int layoutPosition, RecycleAdapterHolder holder) {
+    void addTransitionToContentTravelActivity(View view, int layoutPosition, RecycleAdapterHolder holder) {
         Intent it = new Intent(mContext, ContentTravelActivity.class);
         it.putExtra(ContentTravelActivity.EXTRA_POSITION, listTravel.get(layoutPosition));
 

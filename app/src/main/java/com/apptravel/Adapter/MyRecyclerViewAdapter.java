@@ -41,13 +41,13 @@ abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapter
         holder.setItemsClickListener(new MyRecyclerViewItemListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                showContentTravelActivity(v, pos, holder);
+                addTransitionToContentTravelActivity(v, pos, holder);
             }
         });
     }
 
     // intent to new activity with transition or not
-    abstract void showContentTravelActivity(View view, int layoutPosition, RecycleAdapterHolder holder);
+    abstract void addTransitionToContentTravelActivity(View view, int layoutPosition, RecycleAdapterHolder holder);
 
     @Override
     public int getItemCount() {
