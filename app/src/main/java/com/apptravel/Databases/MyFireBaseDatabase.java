@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -132,7 +133,12 @@ public class MyFireBaseDatabase {
     }
 
     private void settingSliderView(){
-        mSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int devHeight = dm.heightPixels;
+        mSlider.getLayoutParams().height = devHeight/3;
+
+                mSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         mSlider.setDuration(4000);
         mSlider.setCustomAnimation(new DescriptionAnimation());
     }
