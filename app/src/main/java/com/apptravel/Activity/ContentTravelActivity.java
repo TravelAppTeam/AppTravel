@@ -3,6 +3,7 @@ package com.apptravel.Activity;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -30,9 +31,14 @@ public class ContentTravelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_travel);
 
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int devHeight = dm.heightPixels;
+
         imageView = findViewById(R.id.iv_content_travel);
         txtViewTen = findViewById(R.id.tv_content_travel_ten);
         txtViewMota = (TextView) findViewById(R.id.tv_content_travel_mota);
+        imageView.getLayoutParams().height = devHeight/3;
 
         Travel travel = (Travel) getIntent().getSerializableExtra(EXTRA_POSITION);
         addTransitionEvent(travel);

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.apptravel.Entity.DrawerMenuInfo;
 import com.apptravel.R;
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,27 +35,16 @@ public class DrawerMenuAdapter extends ArrayAdapter<DrawerMenuInfo> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder myView;
-        View view = convertView;
-        if(view == null) {
-            view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(layout, null);
-            myView = new ViewHolder();
-            myView.imgAvatar = (ImageView) view.findViewById(R.id.imgDrawerMenu);
-            myView.txtName = (TextView) view.findViewById(R.id.txtDrawerMenu);
-            view.setTag(myView);
-        } else{
-            myView = (ViewHolder) view.getTag();
-        }
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater.inflate(layout, null);
+
+        ImageView imgAvatar = (ImageView)convertView.findViewById(R.id.imgDrawerMenu);
+        TextView txtName = (TextView)convertView.findViewById(R.id.txtDrawerMenu);
 
         DrawerMenuInfo item = list.get(position);
-        myView.txtName.setText(item.getName());
-        Glide.with(this.getContext()).load(item.getId()).centerCrop().fitCenter().into(myView.imgAvatar);
+        txtName.setText(item.getName());
+        Picasso.with(this.getContext()).load(item.getId()).centerCrop().fit().into(imgAvatar);
 
-        return view;
-    }
-    private class ViewHolder{
-        private ImageView imgAvatar;
-        private TextView txtName;
-
+        return convertView;
     }
 }
