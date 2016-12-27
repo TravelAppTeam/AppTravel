@@ -72,9 +72,11 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        new MyFireBaseDatabase(getActivity(), view).getData();
-
+        MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view);
+        myFireBaseDatabase.getDataMostView();
+        myFireBaseDatabase.getDataRecommended();
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

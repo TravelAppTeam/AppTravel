@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.AboutUsActivity" />
+        <activity android:name=".Activity.ContentTravelActivity"></activity>
     </application>
 
 </manifest>
