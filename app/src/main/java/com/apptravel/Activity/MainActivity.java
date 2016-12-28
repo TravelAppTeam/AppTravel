@@ -1,6 +1,9 @@
 package com.apptravel.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.SharedElementCallback;
@@ -19,6 +22,7 @@ import android.widget.ListView;
 
 import com.apptravel.Adapter.DrawerMenuAdapter;
 import com.apptravel.Adapter.ViewPagerAdapter;
+import com.apptravel.Customs.CustomDialog;
 import com.apptravel.Entity.DrawerMenuInfo;
 import com.apptravel.R;
 
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getResources().getStringArray(R.array.sliding_tab)[0]);
+
 
         configDrawer();
         configViewPager();
@@ -99,6 +104,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isOnline()){
+            CustomDialog dialog = new CustomDialog();
+            dialog.showDialog(this, "Err");
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -146,5 +160,12 @@ public class MainActivity extends AppCompatActivity {
                     getString(R.string.menu_about_us)));
         aboutAdapter = new DrawerMenuAdapter(this, R.layout.item_menu, aboutInfos);
         listAbout.setAdapter(aboutAdapter);
+    }
+
+    public boolean isOnline(){
+        ConnectivityManager conManager =
+                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conManager.getActiveNetworkInfo();
+        return  netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

@@ -132,4 +132,9 @@
     <string name="location">Location </string>
     <string name="tel">Tel </string>
     <string name="content_head_image">content head image</string>
+
+    <!-- custom dialog mess -->
+    <string name="dialog_title">No internet connect</string>
+    <string name="dialog_mess">Touch OK...</string>
+
 </resources>
