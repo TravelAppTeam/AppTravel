@@ -126,4 +126,9 @@
     <!-- Transition Name -->
     <string name="transition_image">image transition</string>
     <string name="transition_text">text transition</string>
+
+    <!-- custom dialog mess -->
+    <string name="dialog_title">No internet connect</string>
+    <string name="dialog_mess">Touch OK...</string>
+
 </resources>
