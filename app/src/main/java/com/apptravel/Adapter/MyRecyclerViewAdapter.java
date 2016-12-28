@@ -1,7 +1,9 @@
 package com.apptravel.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +19,18 @@ import java.util.ArrayList;
  */
 
 abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapterHolder> {
-    private static final String TAG = MostViewAdapter.class.getSimpleName();
+    private static final String TAG = MyRecyclerViewAdapter.class.getSimpleName();
+    private final DisplayMetrics dm;
     Context mContext;
     ArrayList<Travel> listTravel;
+    protected static final int LITMIT_STRING_LENGTH = 40;
 
     MyRecyclerViewAdapter(Context mContext, ArrayList<Travel> listTravel) {
         this.mContext = mContext;
         this.listTravel = listTravel;
+
+        dm = new DisplayMetrics();
+        ((Activity)mContext).getWindowManager().getDefaultDisplay().getMetrics(dm);
     }
 
     @Override
@@ -35,12 +42,22 @@ abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapter
         if (travel != null) {
             holder.Ten.setText(travel.getTen());
             Glide.with(mContext).load(travel.getImg()).into(holder.img);
+            String s = travel.getMota();
+            if(s != null) {
+                if(s.length() > LITMIT_STRING_LENGTH) {
+                    s = s.substring(0, LITMIT_STRING_LENGTH) + "...";
+                }
+                holder.Mota.setText(s);
+            }
         } else {
             Log.d(TAG, "position card most view null");
         }
+
+        setSizeImageFromScreenSize(dm, holder);
         holder.setItemsClickListener(new MyRecyclerViewItemListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                Log.d(TAG, "onBindView");
                 addTransitionToContentTravelActivity(v, pos, holder);
             }
         });
@@ -48,7 +65,7 @@ abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapter
 
     // intent to new activity with transition or not
     abstract void addTransitionToContentTravelActivity(View view, int layoutPosition, RecycleAdapterHolder holder);
-
+    abstract void setSizeImageFromScreenSize(DisplayMetrics displayMetrics, RecycleAdapterHolder holder);
     @Override
     public int getItemCount() {
         return listTravel == null ? 0 : listTravel.size();

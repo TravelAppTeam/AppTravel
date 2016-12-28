@@ -4,22 +4,82 @@
     android:id="@+id/activity_content_travel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:transitionName="@string/transition_viewgroup"
     tools:context="com.apptravel.Activity.ContentTravelActivity">
+
     <ImageView
         android:id="@+id/iv_content_travel"
-        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_content_travel_ten"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/content_head_image" />
+
+    <ImageView
+        android:id="@+id/iv_love"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_content_travel"
-        style="@style/QText"/>
-    <TextView
-        android:id="@+id/tv_content_travel_mota"
-        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="" />
+
+    <TableLayout
+        android:layout_below="@id/iv_content_travel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_content_travel_ten"
-        style="@style/SText"/>
+        android:padding="20dp">
+
+        <TableRow android:paddingBottom="10dp">
+            <TextView
+                android:id="@+id/tv_content_travel_ten"
+                style="@style/QText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"/>
+        </TableRow>
+        <TableRow android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_content_travel_mota"
+                style="@style/SText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"/>
+        </TableRow>
+        <TableRow android:paddingBottom="10dp">
+            <TextView
+                android:id="@+id/tv_content_travel_tel_head"
+                style="@style/SText"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="@string/tel"
+                android:layout_column="1"/>
+            <TextView
+                android:id="@+id/tv_content_travel_tel"
+                style="@style/SText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"/>
+        </TableRow>
+        <TableRow
+            android:paddingBottom="10dp">
+            <TextView
+                android:id="@+id/tv_content_travel_diachi_head"
+                style="@style/SText"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:paddingRight="10dp"
+                android:layout_column="1"/>
+            <TextView
+                android:id="@+id/tv_content_travel_diachi"
+                style="@style/SText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"/>
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>

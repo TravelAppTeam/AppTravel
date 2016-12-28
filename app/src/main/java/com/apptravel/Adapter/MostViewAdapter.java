@@ -7,6 +7,9 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.CardView;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
  */
 
 public class MostViewAdapter extends MyRecyclerViewAdapter {
-
+    private static final String TAG = MostViewAdapter.class.getSimpleName();
     public MostViewAdapter(Context mContext, ArrayList<Travel> listTravel) {
         super(mContext, listTravel);
     }
@@ -41,20 +44,27 @@ public class MostViewAdapter extends MyRecyclerViewAdapter {
 
     @Override
     void addTransitionToContentTravelActivity(View view, int layoutPosition, RecycleAdapterHolder holder) {
+        Log.d(TAG, "most view clicked");
         Intent it = new Intent(mContext, ContentTravelActivity.class);
         it.putExtra(ContentTravelActivity.EXTRA_POSITION, listTravel.get(layoutPosition));
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
             holder.img.setTransitionName(mContext.getString(R.string.transition_image));
             holder.Ten.setTransitionName(mContext.getString(R.string.transition_text));
-            Pair<View, String> p1 = Pair.create((View)holder.img, holder.img.getTransitionName());
-            Pair<View, String> p2 = Pair.create( (View) holder.Ten,  holder.Ten.getTransitionName());
+            Pair<View, String> p1 = Pair.create((View) holder.img, holder.img.getTransitionName());
+            Pair<View, String> p2 = Pair.create((View) holder.Ten, holder.Ten.getTransitionName());
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, p1, p2);
             ActivityCompat.startActivity((Activity) mContext, it, options.toBundle());
             //mContext.startActivity(it, options.toBundle());
-        } else{
+        } else {
             mContext.startActivity(it);
         }
+    }
+
+    @Override
+    void setSizeImageFromScreenSize(DisplayMetrics displayMetrics, RecycleAdapterHolder holder) {
+
     }
 
     @Override

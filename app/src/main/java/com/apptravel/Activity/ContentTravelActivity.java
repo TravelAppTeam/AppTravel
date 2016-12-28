@@ -1,14 +1,17 @@
 package com.apptravel.Activity;
 
 import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.apptravel.Entity.Travel;
@@ -22,27 +25,35 @@ public class ContentTravelActivity extends AppCompatActivity {
 
     private static final String TAG = ContentTravelActivity.class.getSimpleName();
 
-    private View imageView;
+    private View imageView, ivHeart, cardView;
     private View txtViewTen;
-    private TextView txtViewMota;
+    private TextView txtViewMota, txtTel, txtDiaChi;
+    private DisplayMetrics dm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_travel);
 
-        DisplayMetrics dm = new DisplayMetrics();
+        dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int devHeight = dm.heightPixels;
 
+        cardView = findViewById(R.id.activity_content_travel);
+        ivHeart = findViewById(R.id.iv_love);
         imageView = findViewById(R.id.iv_content_travel);
         txtViewTen = findViewById(R.id.tv_content_travel_ten);
         txtViewMota = (TextView) findViewById(R.id.tv_content_travel_mota);
-        imageView.getLayoutParams().height = devHeight/3;
+        txtTel = (TextView) findViewById(R.id.tv_content_travel_tel);
+        txtDiaChi = (TextView) findViewById(R.id.tv_content_travel_diachi);
 
         Travel travel = (Travel) getIntent().getSerializableExtra(EXTRA_POSITION);
         addTransitionEvent(travel);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     void addTransitionEvent(Travel travel) {
@@ -52,6 +63,7 @@ public class ContentTravelActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 imageView.setTransitionName(getString(R.string.transition_image));
                 txtViewTen.setTransitionName(getString(R.string.transition_text));
+                cardView.setTransitionName(getString(R.string.transition_card));
             }
         } else {
             Log.d(TAG, "bundle from Main activity is null");
@@ -60,14 +72,17 @@ public class ContentTravelActivity extends AppCompatActivity {
 
     void setAllView(Travel travel) {
         ((TextView) txtViewTen).setText(travel.getTen());
+        txtTel.setText(travel.getTel());
+        txtDiaChi.setText(travel.getDiaChi());
 
         Glide.with(this).load(travel.getImg()).into((ImageView) imageView);
+        imageView.getLayoutParams().height = dm.heightPixels / 2;
 
         txtViewMota.setText(travel.getMota());
         addAnimationText(txtViewMota, ANIMATION_FADE_IN_ID);
     }
 
-    void addAnimationText(View text, int animID){
+    void addAnimationText(View text, int animID) {
         Animation a = AnimationUtils.loadAnimation(this, animID);
         text.clearAnimation();
         text.startAnimation(a);

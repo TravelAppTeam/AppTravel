@@ -27,6 +27,7 @@
             custom:indicator_visibility="invisible"
             custom:pager_animation="Accordion"
             custom:pager_animation_span="1000" />
+
         <TextView
             android:id="@+id/tv_most_view_place"
             style="@style/QText"

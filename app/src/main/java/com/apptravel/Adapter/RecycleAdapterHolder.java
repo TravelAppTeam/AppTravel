@@ -10,17 +10,19 @@ import com.apptravel.R;
 
 /**
  * Created by lldti on 27-Dec-16.
+ *
  */
 
-public class RecycleAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public ImageView img;
-    public TextView Ten;
+class RecycleAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    ImageView img;
+    TextView Ten, Mota;
     private MyRecyclerViewItemListener itemsClick;
 
-    public RecycleAdapterHolder(View itemView) {
+    RecycleAdapterHolder(View itemView) {
         super(itemView);
         img = (ImageView) itemView.findViewById(R.id.iv_most_view);
         Ten = (TextView) itemView.findViewById(R.id.tv_most_view);
+        Mota = (TextView) itemView.findViewById(R.id.tv_most_view_mota);
         itemView.setOnClickListener(this);
     }
 
@@ -29,7 +31,7 @@ public class RecycleAdapterHolder extends RecyclerView.ViewHolder implements Vie
         this.itemsClick.onItemClick(view, getLayoutPosition());
     }
 
-    void setItemsClickListener(MyRecyclerViewItemListener itemsClick){
+    void setItemsClickListener(MyRecyclerViewItemListener itemsClick) {
         this.itemsClick = itemsClick;
     }
 }

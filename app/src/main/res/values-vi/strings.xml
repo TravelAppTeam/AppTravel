@@ -12,4 +12,6 @@
     <string name="menu_info">Thông tin</string>
     <string name="menu_user">Tài khoản</string>
     <string name="menu_youtube">Kênh Youtube</string>
+    <string name="location">Địa chỉ </string>
+    <string name="tel">Tel </string>
 </resources>

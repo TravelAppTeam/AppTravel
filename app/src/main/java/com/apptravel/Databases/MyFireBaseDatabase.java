@@ -1,28 +1,25 @@
 package com.apptravel.Databases;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.apptravel.Activity.ContentTravelActivity;
 import com.apptravel.Adapter.MostViewAdapter;
 import com.apptravel.Adapter.SearchTravelAdapter;
 import com.apptravel.Customs.CustomTextSliderView;
 import com.apptravel.Entity.Travel;
 import com.apptravel.Events.MyChildEventListener;
-import com.apptravel.R;
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,16 +74,24 @@ public class MyFireBaseDatabase {
             Travel travel = dataSnapshot.getValue(Travel.class);
             listSearchTravel.add(travel);
             showSearchTravelData(listSearchTravel);
-            Log.d(TAG, listSearchTravel.size() + "");
         }
     };
+    private CustomTextSliderView sliderView;
 
     private void showRecommendedData(Travel travel) {
         if (travel != null) {
-            CustomTextSliderView sliderView = new CustomTextSliderView(activity);
+            sliderView = new CustomTextSliderView(activity);
             sliderView.image(travel.getImg())
                     .description(travel.getTen())
                     .setScaleType(BaseSliderView.ScaleType.Fit);
+            sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    Intent it = new Intent(activity, ContentTravelActivity.class);
+                    it.putExtra(ContentTravelActivity.EXTRA_POSITION, listRecommendedTravel.get(mSlider.getCurrentPosition()));
+                    activity.startActivity(it);
+                }
+            });
             mSlider.addSlider(sliderView);
         } else {
             Log.d(TAG, "list travel is null in Recommeded data");
@@ -117,12 +122,11 @@ public class MyFireBaseDatabase {
         listSearchTravel = new ArrayList<>();
     }
 
-    public MyFireBaseDatabase(Activity activity, View v, SliderLayout sliderLayout, RecyclerView recyclerView) {
+    public MyFireBaseDatabase(final Activity activity, View v, SliderLayout sliderLayout, RecyclerView recyclerView) {
         // using for Home fragment
         this(activity);
         this.view = v;
         this.mSlider = sliderLayout;
-
         mReMostViewAdapter = new MostViewAdapter(v.getContext(), listMostViewTravel);
         settingRecyclerView(recyclerView, MOSTVIEW_COLUMN, mReMostViewAdapter);
     }
@@ -151,20 +155,9 @@ public class MyFireBaseDatabase {
     }
 
     public void getSearchDataByName(String queryContent) {
-        Log.d(TAG, "queryContent = " + queryContent);
-        listSearchTravel.clear();
-        Query myQuery = database.child(URL_DULICH_TAG).startAt("#" + queryContent).orderByChild(URL_DULICH_NAME);
-        myQuery.addChildEventListener(searchEvent);
-        myQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "done");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //listSearchTravel.clear();
+        database.child(URL_DULICH_TAG).addChildEventListener(searchEvent);
+//        Query myQuery = database.child(URL_DULICH_TAG).startAt(queryContent).orderByChild(URL_DULICH_NAME);
+//        myQuery.addChildEventListener(searchEvent);
     }
 }
