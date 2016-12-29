@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class MostViewAdapter extends MyRecyclerViewAdapter {
     private static final String TAG = MostViewAdapter.class.getSimpleName();
+
     public MostViewAdapter(Context mContext, ArrayList<Travel> listTravel) {
         super(mContext, listTravel);
     }
@@ -40,6 +41,9 @@ public class MostViewAdapter extends MyRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(RecycleAdapterHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        DisplayMetrics dm = getDisplayMetrics();
+        if (dm != null)
+            holder.img.getLayoutParams().height = 2 * dm.widthPixels / 9;
     }
 
     @Override

@@ -4,16 +4,17 @@
     android:id="@+id/cv_recycle_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:orientation="vertical"
-    android:padding="5dp"
-    custom:cardCornerRadius="15dp"
-    custom:cardElevation="3dp"
+    custom:cardElevation="1dp"
     android:transitionName="@string/transition_card">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="2dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <ImageView
             android:id="@+id/iv_most_view"

@@ -64,11 +64,19 @@ abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapter
         });
     }
 
+    public Context getmContext() {
+        return mContext;
+    }
+
     // intent to new activity with transition or not
     abstract void addTransitionToContentTravelActivity(View view, int layoutPosition, RecycleAdapterHolder holder);
     abstract void setSizeImageFromScreenSize(DisplayMetrics displayMetrics, RecycleAdapterHolder holder);
     @Override
     public int getItemCount() {
         return listTravel == null ? 0 : listTravel.size();
+    }
+
+    public DisplayMetrics getDisplayMetrics() {
+        return dm;
     }
 }

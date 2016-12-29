@@ -1,5 +1,6 @@
 package com.apptravel.Adapter;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.apptravel.R;
 class RecycleAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ImageView img;
     TextView Ten, Mota;
+    CardView cardView;
     private MyRecyclerViewItemListener itemsClick;
 
     RecycleAdapterHolder(View itemView) {
@@ -23,6 +25,7 @@ class RecycleAdapterHolder extends RecyclerView.ViewHolder implements View.OnCli
         img = (ImageView) itemView.findViewById(R.id.iv_most_view);
         Ten = (TextView) itemView.findViewById(R.id.tv_most_view);
         Mota = (TextView) itemView.findViewById(R.id.tv_most_view_mota);
+        cardView = (CardView) itemView.findViewById(R.id.cv_recycle_view);
         itemView.setOnClickListener(this);
     }
 
