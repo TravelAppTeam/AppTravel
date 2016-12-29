@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.apptravel.Entity.Travel;
 import com.apptravel.Events.MyRecyclerViewItemListener;
+import com.apptravel.R;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapter
         Travel travel = listTravel.get(position);
         if (travel != null) {
             holder.Ten.setText(travel.getTen());
-            Glide.with(mContext).load(travel.getImg()).into(holder.img);
+            Glide.with(mContext).load(travel.getImg()).placeholder(R.drawable.bg_placeholder).into(holder.img);
             String s = travel.getMota();
             if(s != null) {
                 if(s.length() > LITMIT_STRING_LENGTH) {

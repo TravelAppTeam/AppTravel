@@ -75,8 +75,8 @@ public class ContentTravelActivity extends AppCompatActivity {
         txtTel.setText(travel.getTel());
         txtDiaChi.setText(travel.getDiaChi());
 
-        Glide.with(this).load(travel.getImg()).into((ImageView) imageView);
         imageView.getLayoutParams().height = dm.heightPixels / 2;
+        Glide.with(this).load(travel.getImg()).placeholder(R.drawable.bg_placeholder).into((ImageView) imageView);
 
         txtViewMota.setText(travel.getMota());
         addAnimationText(txtViewMota, ANIMATION_FADE_IN_ID);

@@ -64,7 +64,7 @@ public class MostViewAdapter extends MyRecyclerViewAdapter {
 
     @Override
     void setSizeImageFromScreenSize(DisplayMetrics displayMetrics, RecycleAdapterHolder holder) {
-
+        // do nothing
     }
 
     @Override
