@@ -25,12 +25,4 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"/>
     </RelativeLayout>
-    <ScrollView
-        android:nestedScrollingEnabled="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
 </FrameLayout>
