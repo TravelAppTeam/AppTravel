@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private ViewPagerAdapter mViewPagerAdapter;
     private TabLayout mTabLayout;
+
+    private boolean doubleClickBack = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +99,37 @@ public class MainActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
-            startActivity(intent);
-            finish();
+            int postion = mTabLayout.getSelectedTabPosition();
+            if (postion != 0){
+                mViewPager.setCurrentItem(0);
+            }else{
+
+                if (doubleClickBack) {
+                    super.onBackPressed();
+                    finish();
+                    IntroActivity.instance.finish();
+                    return;
+                }
+
+                doubleClickBack = true;
+                Snackbar.make(findViewById(R.id.drawer_layout),"Bạn muốn thoát ngay?", Snackbar.LENGTH_LONG)
+                .setAction("EXIT NOW", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                        IntroActivity.instance.finish();
+                       // onBackPressed();
+                    }
+                }).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleClickBack = false;
+                    }
+                }, 2000);
+
+            }
         }
     }
 

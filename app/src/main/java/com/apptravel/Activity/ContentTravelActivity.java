@@ -29,12 +29,14 @@ public class ContentTravelActivity extends AppCompatActivity {
     private View txtViewTen;
     private TextView txtViewMota, txtTel, txtDiaChi;
     private DisplayMetrics dm;
+    private ImageView imgBtnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_travel);
 
+        /*
         dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -45,9 +47,17 @@ public class ContentTravelActivity extends AppCompatActivity {
         txtViewMota = (TextView) findViewById(R.id.tv_content_travel_mota);
         txtTel = (TextView) findViewById(R.id.tv_content_travel_tel);
         txtDiaChi = (TextView) findViewById(R.id.tv_content_travel_diachi);
-
+        imgBtnBack = (ImageView)findViewById(R.id.imgBtnBack);
         Travel travel = (Travel) getIntent().getSerializableExtra(EXTRA_POSITION);
         addTransitionEvent(travel);
+
+        imgBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        */
 
     }
 

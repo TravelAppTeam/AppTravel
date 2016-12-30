@@ -26,12 +26,13 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     private ImageView imNext;
     private boolean isLastIndicator = false;
     private Boolean fromAboutApp = false;
-
+    public static IntroActivity instance = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         boolean isFirstLaunch = loadSavedPreferances();
+        instance = this;
         try {
             fromAboutApp = getIntent().getExtras().getBoolean(MainActivity.INTRO_BUNDLE_KEY);
         }catch (Exception e){
@@ -51,6 +52,7 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
         addSlider();
 
     }
+
 
     private void changeActivity() {
         Intent it = new Intent(this, MainActivity.class);
