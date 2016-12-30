@@ -1,22 +1,26 @@
 package com.apptravel.Activity;
 
+import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.apptravel.Entity.Travel;
 import com.apptravel.R;
 import com.bumptech.glide.Glide;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ContentTravelActivity extends AppCompatActivity {
 
@@ -25,45 +29,47 @@ public class ContentTravelActivity extends AppCompatActivity {
 
     private static final String TAG = ContentTravelActivity.class.getSimpleName();
 
-    private View imageView, ivHeart, cardView;
-    private View txtViewTen;
-    private TextView txtViewMota, txtTel, txtDiaChi;
+    private TextView txtInfo, txtTel, txtAddress;
     private DisplayMetrics dm;
-    private ImageView imgBtnBack;
+    private ImageView imgBtnBack, imageView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_travel);
 
-        /*
+
+
         dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        cardView = findViewById(R.id.activity_content_travel);
-        ivHeart = findViewById(R.id.iv_love);
-        imageView = findViewById(R.id.iv_content_travel);
-        txtViewTen = findViewById(R.id.tv_content_travel_ten);
-        txtViewMota = (TextView) findViewById(R.id.tv_content_travel_mota);
-        txtTel = (TextView) findViewById(R.id.tv_content_travel_tel);
-        txtDiaChi = (TextView) findViewById(R.id.tv_content_travel_diachi);
-        imgBtnBack = (ImageView)findViewById(R.id.imgBtnBack);
         Travel travel = (Travel) getIntent().getSerializableExtra(EXTRA_POSITION);
+        ((CollapsingToolbarLayout)findViewById(R.id.toolbar_layout)).setTitle(travel.getTen());
+        ((AppBarLayout)findViewById(R.id.app_bar_travel)).getLayoutParams().height = dm.heightPixels/2;
+        imageView = (ImageView)findViewById(R.id.iv_content_travel);
+        txtInfo = (TextView)findViewById(R.id.txt_travel_content_info);
+        txtAddress = (TextView)findViewById(R.id.txt_travel_content_address);
+        txtTel = (TextView)findViewById(R.id.txt_travel_content_tel);
+
         addTransitionEvent(travel);
 
-        imgBtnBack.setOnClickListener(new View.OnClickListener() {
+        toolbar = (Toolbar)findViewById(R.id.toolbar_travel);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        */
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     void addTransitionEvent(Travel travel) {
@@ -72,8 +78,8 @@ public class ContentTravelActivity extends AppCompatActivity {
             setAllView(travel);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 imageView.setTransitionName(getString(R.string.transition_image));
-                txtViewTen.setTransitionName(getString(R.string.transition_text));
-                cardView.setTransitionName(getString(R.string.transition_card));
+                // txtViewTen.setTransitionName(getString(R.string.transition_text));
+                // cardView.setTransitionName(getString(R.string.transition_card));
             }
         } else {
             Log.d(TAG, "bundle from Main activity is null");
@@ -81,15 +87,15 @@ public class ContentTravelActivity extends AppCompatActivity {
     }
 
     void setAllView(Travel travel) {
-        ((TextView) txtViewTen).setText(travel.getTen());
+
         txtTel.setText(travel.getTel());
-        txtDiaChi.setText(travel.getDiaChi());
-
-        imageView.getLayoutParams().height = dm.heightPixels / 2;
+        txtAddress.setText(travel.getDiaChi());
+        txtInfo.setText(travel.getMota());
+        //imageView.getLayoutParams().height = dm.heightPixels / 2;
         Glide.with(this).load(travel.getImg()).placeholder(R.drawable.bg_placeholder).into((ImageView) imageView);
-
-        txtViewMota.setText(travel.getMota());
-        addAnimationText(txtViewMota, ANIMATION_FADE_IN_ID);
+        addAnimationText(txtInfo, ANIMATION_FADE_IN_ID);
+        addAnimationText(txtTel, ANIMATION_FADE_IN_ID);
+        addAnimationText(txtAddress, ANIMATION_FADE_IN_ID);
     }
 
     void addAnimationText(View text, int animID) {

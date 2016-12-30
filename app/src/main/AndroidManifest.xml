@@ -29,7 +29,8 @@
             android:theme="@style/AppTheme.TranslucentStatut" />
         <activity
             android:name=".Activity.ContentTravelActivity"
-            android:theme="@style/AppTheme.TranslucentStatut" />
+            android:label="@string/title_activity_content_travel"
+            android:theme="@style/AppTheme.Trans"></activity>
     </application>
 
 </manifest>
