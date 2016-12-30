@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class SearchTravelAdapter extends MyRecyclerViewAdapter {
 
     private static final String TAG = SearchTravelAdapter.class.getSimpleName();
+
     public SearchTravelAdapter(Context mContext, ArrayList<Travel> listTravel) {
         super(mContext, listTravel);
     }
@@ -44,18 +45,18 @@ public class SearchTravelAdapter extends MyRecyclerViewAdapter {
         Intent it = new Intent(mContext, ContentTravelActivity.class);
         it.putExtra(ContentTravelActivity.EXTRA_POSITION, listTravel.get(layoutPosition));
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             holder.img.setTransitionName(mContext.getString(R.string.transition_image));
             holder.Ten.setTransitionName(mContext.getString(R.string.transition_text));
 
-            Pair<View, String> p1 = Pair.create((View)holder.img, holder.img.getTransitionName());
-            Pair<View, String> p2 = Pair.create( (View) holder.Ten,  holder.Ten.getTransitionName());
+            Pair<View, String> p1 = Pair.create((View) holder.img, holder.img.getTransitionName());
+            Pair<View, String> p2 = Pair.create((View) holder.Ten, holder.Ten.getTransitionName());
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, p1, p2);
             ActivityCompat.startActivity((Activity) mContext, it, options.toBundle());
             //mContext.startActivity(it, options.toBundle());
-        } else{
+        } else {
             mContext.startActivity(it);
         }
     }
@@ -71,6 +72,11 @@ public class SearchTravelAdapter extends MyRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(RecycleAdapterHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        DisplayMetrics dm = getDisplayMetrics();
+        if(dm != null) {
+            holder.img.getLayoutParams().height = dm.widthPixels / 4; // searchfragment view image 1/4 screen
+            holder.img.getLayoutParams().width = (dm.widthPixels*3 / (4*2)) ; // width = 1.5 height
+        }
     }
 
     @Override
