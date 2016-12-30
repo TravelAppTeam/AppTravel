@@ -32,9 +32,7 @@
             android:id="@+id/view_search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            >
-
+            android:background="@color/colorPrimary" >
             <EditText
                 android:layout_margin="10dp"
                 android:id="@+id/edt_search_view"

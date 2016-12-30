@@ -4,56 +4,72 @@
     android:id="@+id/cv_recycle_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="0dp"
     android:orientation="vertical"
-    custom:cardElevation="1dp"
-    android:transitionName="@string/transition_card">
+    android:padding="0dp"
+    android:transitionName="@string/transition_card"
+    custom:cardCornerRadius="0dp"
+    custom:cardElevation="0dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="2dp"
-        android:paddingBottom="4dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
-
-        <ImageView
-            android:id="@+id/iv_most_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:transitionName="@string/transition_image" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/iv_most_view"
-            android:layout_margin="8dp">
-            <TextView
-                android:id="@+id/tv_most_view"
-                style="@style/QText"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_most_view_mota"
-                android:layout_below="@+id/tv_most_view"
-                android:layout_marginTop="3dp"
-                style="@style/SText"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/imageinend"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
             <ImageView
-                android:id="@+id/imageinend"
+                android:id="@+id/iv_most_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:foregroundGravity="center_vertical"
-                android:src="@drawable/ic_lightbulb_outline_black_36dp"/>
+                android:scaleType="fitXY"
+                android:transitionName="@string/transition_image" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/iv_most_view">
+
+                <TextView
+                    android:id="@+id/tv_most_view"
+                    style="@style/QText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tv_most_view_mota"
+                    style="@style/SText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_most_view"
+                    android:layout_marginTop="3dp"
+                    android:layout_toLeftOf="@+id/imageinend"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/imageinend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:foregroundGravity="center_vertical"
+                    android:src="@drawable/ic_lightbulb_outline_black_36dp" />
+            </RelativeLayout>
         </RelativeLayout>
+        <View
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/md_grey_400"
+            android:layout_height="1px"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
