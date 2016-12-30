@@ -75,7 +75,7 @@ public class SearchTravelAdapter extends MyRecyclerViewAdapter {
         DisplayMetrics dm = getDisplayMetrics();
         if(dm != null) {
             holder.img.getLayoutParams().height = dm.widthPixels / 4; // searchfragment view image 1/4 screen
-            holder.img.getLayoutParams().width = (dm.widthPixels*3 / (4*2)) ; // width = 1.5 height
+            holder.img.getLayoutParams().width = (dm.widthPixels*4 / (4*3)) ; // width = 1.3 height
         }
     }
 

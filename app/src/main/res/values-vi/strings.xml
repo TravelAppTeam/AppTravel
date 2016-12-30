@@ -2,8 +2,8 @@
     <string name="app_name">AppTravel</string>
     <string name="skip">Bỏ qua</string>
     <string name="done">Hoàn Thành</string>
-    <string name="recommended_place">Đề xuất khu du lịch</string>
-    <string name="most_view_place">Khu Du Lich Duoc Xem Nhieu</string>
+    <string name="recommended_place">Đề xuất địa điểm</string>
+    <string name="most_view_place">Được xem nhiều</string>
     <string name="destination_domestic_travel">Điểm đến, Du lịch trong nước</string>
     <string name="menu_about_app">Thông tin ứng dụng</string>
     <string name="menu_about_us">Thông tin nhóm phát triển</string>
@@ -16,4 +16,7 @@
     <string name="tel">Tel </string>
     <string name="dialog_mess">Nhấn OK để kết nối Wifi, NO để thoát</string>
     <string name="dialog_title">Không có kết nối internet</string>
+
+    <string name="close_app_now">Bạn có muốn đóng ứng dụng không ?</string>
+    <string name="exit_now">THOÁT NGAY</string>
 </resources>

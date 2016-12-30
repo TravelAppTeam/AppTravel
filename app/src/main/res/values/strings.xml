@@ -136,5 +136,7 @@
     <!-- custom dialog mess -->
     <string name="dialog_title">No internet connect</string>
     <string name="dialog_mess">Touch OK...</string>
+    <string name="close_app_now">Do you want to close app</string>
+    <string name="exit_now">EXIT NOW</string>
 
 </resources>

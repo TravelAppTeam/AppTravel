@@ -1,5 +1,6 @@
 package com.apptravel.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -10,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,6 +23,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.apptravel.Adapter.DrawerMenuAdapter;
@@ -35,7 +39,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String INTRO_BUNDLE_KEY= "intro bundle key";
+    public final static String INTRO_BUNDLE_KEY = "intro bundle key";
 
     private ListView listUser;
     private ListView listAbout;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
 
     private boolean doubleClickBack = false;
+    private EditText edtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getResources().getStringArray(R.array.sliding_tab)[0]);
+        edtSearch = (EditText) findViewById(R.id.edt_search_view);
 
-
+        settingEdtSearch();
         configDrawer();
         configViewPager();
-
 
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -78,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawer.closeDrawer(GravityCompat.START);
-                switch (position){
+                switch (position) {
                     case 0:
                         Intent appIntent = new Intent(MainActivity.this, IntroActivity.class);
-                        appIntent.putExtra(INTRO_BUNDLE_KEY,true);
+                        appIntent.putExtra(INTRO_BUNDLE_KEY, true);
                         startActivity(appIntent);
                         break;
                     case 1:
@@ -93,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void settingEdtSearch() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        edtSearch.getLayoutParams().width = 2*dm.widthPixels / 3;
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -100,10 +111,9 @@ public class MainActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             int postion = mTabLayout.getSelectedTabPosition();
-            if (postion != 0){
+            if (postion != 0) {
                 mViewPager.setCurrentItem(0);
-            }else{
-
+            } else {
                 if (doubleClickBack) {
                     super.onBackPressed();
                     finish();
@@ -112,15 +122,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 doubleClickBack = true;
-                Snackbar.make(findViewById(R.id.drawer_layout),"Bạn muốn thoát ngay?", Snackbar.LENGTH_LONG)
-                .setAction("EXIT NOW", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                        IntroActivity.instance.finish();
-                       // onBackPressed();
-                    }
-                }).show();
+                Snackbar.make(findViewById(R.id.drawer_layout), R.string.close_app_now, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.exit_now, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                                IntroActivity.instance.finish();
+                            }
+                        }).show();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -136,9 +145,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!isOnline()){
+        if (!isOnline()) {
             CustomDialog dialog = new CustomDialog();
             dialog.showDialog(this, "Err");
+        }
+        if (mTabLayout.getSelectedTabPosition() == 0) {
+            edtSearch.setVisibility(View.GONE);
+        } else {
+            edtSearch.setVisibility(View.VISIBLE);
         }
     }
 
@@ -159,43 +173,67 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configViewPager() {
-        mViewPager = (ViewPager)findViewById(R.id.viewPager);
-        mTabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
-                                getResources().getStringArray(R.array.sliding_tab), this);
+                getResources().getStringArray(R.array.sliding_tab), this);
 
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        edtSearch.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        edtSearch.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
-    private void configDrawer(){
+
+    private void configDrawer() {
         //Config user list
-        listUser = (ListView)findViewById(R.id.list_user);
+        listUser = (ListView) findViewById(R.id.list_user);
         userInfos = new ArrayList<DrawerMenuInfo>();
         userInfos.add(new DrawerMenuInfo(R.drawable.ic_user,
-                    getString(R.string.menu_user)));
+                getString(R.string.menu_user)));
         userInfos.add(new DrawerMenuInfo(R.drawable.ic_facebook,
-                    getString(R.string.menu_facebook)));
+                getString(R.string.menu_facebook)));
         userInfos.add(new DrawerMenuInfo(R.drawable.ic_youtube,
-                    getString(R.string.menu_youtube)));
+                getString(R.string.menu_youtube)));
         userAdapter = new DrawerMenuAdapter(this, R.layout.item_menu, userInfos);
         listUser.setAdapter(userAdapter);
 
         //config about list
-        listAbout = (ListView)findViewById(R.id.list_about);
+        listAbout = (ListView) findViewById(R.id.list_about);
         aboutInfos = new ArrayList<DrawerMenuInfo>();
         aboutInfos.add(new DrawerMenuInfo(R.drawable.ic_about_app,
-                    getString(R.string.menu_about_app)));
+                getString(R.string.menu_about_app)));
         aboutInfos.add(new DrawerMenuInfo(R.drawable.ic_about_us,
-                    getString(R.string.menu_about_us)));
+                getString(R.string.menu_about_us)));
         aboutAdapter = new DrawerMenuAdapter(this, R.layout.item_menu, aboutInfos);
         listAbout.setAdapter(aboutAdapter);
     }
 
-    public boolean isOnline(){
+    public boolean isOnline() {
         ConnectivityManager conManager =
-                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conManager.getActiveNetworkInfo();
-        return  netInfo != null && netInfo.isConnectedOrConnecting();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

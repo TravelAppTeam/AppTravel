@@ -28,7 +28,25 @@
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabMaxWidth="0dp"/>
+        <FrameLayout
+            android:id="@+id/view_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            >
 
+            <EditText
+                android:layout_margin="10dp"
+                android:id="@+id/edt_search_view"
+                android:hint="@string/destination_domestic_travel"
+                android:textColorHint="@color/md_grey_400"
+                style="@style/SearchText"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search_view_bar" />
+        </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
