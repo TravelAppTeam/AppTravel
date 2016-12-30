@@ -19,4 +19,7 @@
 
     <string name="close_app_now">Bạn có muốn đóng ứng dụng không ?</string>
     <string name="exit_now">THOÁT NGAY</string>
+    <string name="travel_about">Thông tin</string>
+    <string name="travel_address">Địa chỉ</string>
+    <string name="travel_tel">Số điện thoại</string>
 </resources>
