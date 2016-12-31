@@ -72,9 +72,9 @@ public class SearchTravelAdapter extends MyRecyclerViewAdapter {
     public void onBindViewHolder(RecycleAdapterHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         DisplayMetrics dm = getDisplayMetrics();
-        if(dm != null) {
-            holder.img.getLayoutParams().height = dm.widthPixels / 4; // searchfragment view image 1/4 screen
-            holder.img.getLayoutParams().width = (dm.widthPixels*4 / (4*3)) ; // width = 1.3 height
+        if (dm != null) {
+            holder.img.getLayoutParams().height = (dm.widthPixels / 4) * 3 / 4; // searchfragment view image 1/4 screen
+            holder.img.getLayoutParams().width = dm.widthPixels / 4; // width = 1.3 height
         }
     }
 

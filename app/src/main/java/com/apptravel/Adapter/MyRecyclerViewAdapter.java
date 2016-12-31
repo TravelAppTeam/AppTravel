@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.apptravel.Entity.Travel;
 import com.apptravel.Events.MyRecyclerViewItemListener;
+import com.apptravel.Events.RoundedCornerTransformation;
 import com.apptravel.R;
 import com.bumptech.glide.Glide;
 
@@ -25,7 +26,7 @@ abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapter
     Context mContext;
     ArrayList<Travel> listTravel;
     protected static final int LITMIT_STRING_LENGTH = 40;
-
+    private static  final int ROUND_CORNER_SIZE = 15;
     MyRecyclerViewAdapter(Context mContext, ArrayList<Travel> listTravel) {
         this.mContext = mContext;
         this.listTravel = listTravel;
@@ -42,7 +43,8 @@ abstract class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecycleAdapter
         Travel travel = listTravel.get(position);
         if (travel != null) {
             holder.Ten.setText(travel.getTen());
-            Glide.with(mContext).load(travel.getImg()).placeholder(R.drawable.bg_placeholder).into(holder.img);
+            Glide.with(mContext).load(travel.getImg()).centerCrop().placeholder(R.drawable.bg_placeholder)
+                    .bitmapTransform(new RoundedCornerTransformation(mContext,ROUND_CORNER_SIZE,0)).into(holder.img);
             String s = travel.getMota();
             if(s != null) {
                 if(s.length() > LITMIT_STRING_LENGTH) {

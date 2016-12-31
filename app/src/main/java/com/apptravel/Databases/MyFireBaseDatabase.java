@@ -20,6 +20,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,9 +156,15 @@ public class MyFireBaseDatabase {
     }
 
     public void getSearchDataByName(String queryContent) {
-        //listSearchTravel.clear();
-        database.child(URL_DULICH_TAG).addChildEventListener(searchEvent);
-//        Query myQuery = database.child(URL_DULICH_TAG).startAt(queryContent).orderByChild(URL_DULICH_NAME);
-//        myQuery.addChildEventListener(searchEvent);
+        listSearchTravel = new ArrayList<>();
+        Log.d("Query content is: {}", queryContent);
+        Query myQuery = database.orderByChild(URL_DULICH_NAME).equalTo(queryContent);
+        myQuery.addChildEventListener(searchEvent);
+        Log.d("list string length {}", listSearchTravel.size() + "");
+    }
+
+    public void getSearchDataByName(boolean bool) {
+        if (bool)
+            database.child(URL_DULICH_TAG).addChildEventListener(searchEvent);
     }
 }

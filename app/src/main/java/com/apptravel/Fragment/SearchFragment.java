@@ -1,6 +1,5 @@
 package com.apptravel.Fragment;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -71,14 +70,14 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mSearchView = (RecyclerView) view.findViewById(R.id.rv_search_travel);
         final MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view, mSearchView);
-        myFireBaseDatabase.getSearchDataByName("");
-        edtSearchView = (EditText) view.findViewById(R.id.edt_search_view);
-//        edtSearchView.addTextChangedListener(new MySearchTextChange(){
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                myFireBaseDatabase.getSearchDataByName(charSequence.toString());
-//            }
-//        });
+        edtSearchView = (EditText) getActivity().findViewById(R.id.edt_search_view);
+        myFireBaseDatabase.getSearchDataByName(true);
+        edtSearchView.addTextChangedListener(new MySearchTextChange(){
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                myFireBaseDatabase.getSearchDataByName(charSequence.toString());
+            }
+        });
 
     }
 
