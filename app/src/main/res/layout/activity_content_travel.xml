@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:contentScrim="?attr/colorPrimary"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context="com.apptravel.Activity.ContentTravelActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_travel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
+            android:fitsSystemWindows="false"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -27,11 +27,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/iv_content_travel"
-                android:fitsSystemWindows="true"
+                android:fitsSystemWindows="false"
                 app:layout_collapseMode="parallax"
                 android:scaleType="centerCrop"/>
 
             <android.support.v7.widget.Toolbar
+                android:layout_marginTop="24dp"
+                android:fitsSystemWindows="false"
                 android:id="@+id/toolbar_travel"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -45,12 +47,13 @@
     <include layout="@layout/content_travel" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_travel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar_travel"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_favorite_white_24dp"
+        app:backgroundTint="@android:color/holo_red_light" />
 
 </android.support.design.widget.CoordinatorLayout>

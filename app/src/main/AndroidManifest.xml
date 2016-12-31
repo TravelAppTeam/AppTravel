@@ -30,7 +30,7 @@
         <activity
             android:name=".Activity.ContentTravelActivity"
             android:label="@string/title_activity_content_travel"
-            android:theme="@style/AppTheme.Trans"></activity>
+            android:theme="@style/AppTheme.TranslucentStatut"></activity>
     </application>
 
 </manifest>

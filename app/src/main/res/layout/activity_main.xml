@@ -43,7 +43,8 @@
                 android:fontFamily="Roboto Regular"
                 android:paddingTop="8dp"
                 android:paddingLeft="8dp"
-                android:textSize="17sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <ListView
                 android:id="@+id/list_user"
@@ -62,7 +63,8 @@
                 android:fontFamily="Roboto Regular"
                 android:paddingTop="8dp"
                 android:paddingLeft="8dp"
-                android:textSize="17sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold"/>
             <ListView
                 android:id="@+id/list_about"
                 android:layout_width="match_parent"

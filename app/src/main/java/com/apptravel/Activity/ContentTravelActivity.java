@@ -1,12 +1,10 @@
 package com.apptravel.Activity;
 
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.apptravel.Entity.Travel;
 import com.apptravel.R;
 import com.bumptech.glide.Glide;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ContentTravelActivity extends AppCompatActivity {
 
@@ -91,6 +88,12 @@ public class ContentTravelActivity extends AppCompatActivity {
         txtTel.setText(travel.getTel());
         txtAddress.setText(travel.getDiaChi());
         txtInfo.setText(travel.getMota());
+
+       // Typeface typeface = Typeface.createFromAsset(getAssets(), "font/arima_madurai_regular.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/Roboto-Regular.ttf");
+        txtTel.setTypeface(typeface);
+        txtAddress.setTypeface(typeface);
+        txtInfo.setTypeface(typeface);
         //imageView.getLayoutParams().height = dm.heightPixels / 2;
         Glide.with(this).load(travel.getImg()).placeholder(R.drawable.bg_placeholder).into((ImageView) imageView);
         addAnimationText(txtInfo, ANIMATION_FADE_IN_ID);
