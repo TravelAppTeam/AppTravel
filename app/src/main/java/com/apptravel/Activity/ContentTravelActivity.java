@@ -89,12 +89,11 @@ public class ContentTravelActivity extends AppCompatActivity {
         txtAddress.setText(travel.getDiaChi());
         txtInfo.setText(travel.getMota());
 
-       // Typeface typeface = Typeface.createFromAsset(getAssets(), "font/arima_madurai_regular.ttf");
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/Roboto-Regular.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/arima_madurai_regular.ttf");
         txtTel.setTypeface(typeface);
         txtAddress.setTypeface(typeface);
         txtInfo.setTypeface(typeface);
-        //imageView.getLayoutParams().height = dm.heightPixels / 2;
+
         Glide.with(this).load(travel.getImg()).placeholder(R.drawable.bg_placeholder).into((ImageView) imageView);
         addAnimationText(txtInfo, ANIMATION_FADE_IN_ID);
         addAnimationText(txtTel, ANIMATION_FADE_IN_ID);

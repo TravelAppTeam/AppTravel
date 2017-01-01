@@ -25,9 +25,9 @@
             style="@style/CustomTabLayout"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabMaxWidth="0dp"/>
+            app:tabGravity="center"
+            app:tabMaxWidth="0dp" />
         <FrameLayout
             android:id="@+id/view_search_view"
             android:layout_width="match_parent"

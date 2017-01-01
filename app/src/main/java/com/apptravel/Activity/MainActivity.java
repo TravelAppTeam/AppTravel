@@ -1,18 +1,23 @@
 package com.apptravel.Activity;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.SharedElementCallback;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,17 +30,15 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.apptravel.Adapter.DrawerMenuAdapter;
 import com.apptravel.Adapter.ViewPagerAdapter;
-import com.apptravel.Customs.CustomDialog;
 import com.apptravel.Entity.DrawerMenuInfo;
 import com.apptravel.R;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     private void settingEdtSearch() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        edtSearch.getLayoutParams().width = 2*dm.widthPixels / 3;
+        edtSearch.getLayoutParams().width = 2 * dm.widthPixels / 3;
     }
 
     @Override
@@ -146,13 +149,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (!isOnline()) {
-            CustomDialog dialog = new CustomDialog();
-            dialog.showDialog(this, "Err");
-        }
-        if (mTabLayout.getSelectedTabPosition() == 0) {
-            edtSearch.setVisibility(View.GONE);
-        } else {
-            edtSearch.setVisibility(View.VISIBLE);
+            showDialog();
+            if (mTabLayout.getSelectedTabPosition() == 0) {
+                edtSearch.setVisibility(View.GONE);
+            } else {
+                edtSearch.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -181,22 +183,53 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+//        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_home_white_48dp);
+//        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_search_white_48dp);
+
+        final int legacyTabIconColor = ContextCompat.getColor(getApplication(),
+                R.color.md_green_900);
+        final int selectTabIconColor = ContextCompat.getColor(getApplication(),
+                R.color.md_white_1000);
+
+        for (int i=0; i<mTabLayout.getTabCount(); i++){
+            TabLayout.Tab tab = mTabLayout.getTabAt(i)
+                    .setCustomView(mViewPagerAdapter.getTabCustomView(i));
+        }
+
+        ((ImageView)mTabLayout.getTabAt(0).getCustomView().findViewById(R.id.img_icon_tab))
+                .getBackground().setColorFilter(selectTabIconColor, PorterDuff.Mode.SRC_IN);
+
+        ((ImageView)mTabLayout.getTabAt(1).getCustomView().findViewById(R.id.img_icon_tab))
+                .getBackground().setColorFilter(legacyTabIconColor, PorterDuff.Mode.SRC_IN);
+
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
                         edtSearch.setVisibility(View.GONE);
+                        toolbar.setVisibility(View.VISIBLE);
                         break;
                     case 1:
                         edtSearch.setVisibility(View.VISIBLE);
+                        toolbar.setVisibility(View.GONE);
                         break;
+                }
+                //tab.getIcon().setColorFilter(selectTabIconColor, PorterDuff.Mode.SRC_IN);
+                ImageView imageView = (ImageView)(tab.getCustomView()).findViewById(R.id.img_icon_tab);
+                imageView.getBackground().setColorFilter(selectTabIconColor, PorterDuff.Mode.SRC_IN);
+                if (imageView.getDrawable() == null){
+                    Log.i("image", "NULL");
+                }                          else{
+                    Log.i("image", "Not null");
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                //tab.getIcon().setColorFilter(legacyTabIconColor, PorterDuff.Mode.SRC_IN);
+                ((ImageView)tab.getCustomView().findViewById(R.id.img_icon_tab)).getBackground().
+                       setColorFilter(legacyTabIconColor, PorterDuff.Mode.SRC_IN);
             }
 
             @Override
@@ -235,5 +268,31 @@ public class MainActivity extends AppCompatActivity {
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_title));
+        builder.setMessage(getString(R.string.dialog_mess));
+
+        builder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                        startActivity(intent);
+                        dialog.cancel();
+                    }
+                });
+        builder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        builder.show();
     }
 }

@@ -135,13 +135,13 @@
 
     <!-- custom dialog mess -->
     <string name="dialog_title">No internet connect</string>
-    <string name="dialog_mess">Touch OK...</string>
+    <string name="dialog_mess">\" Click Yes to set wifi connect, No to exit\"</string>
     <string name="close_app_now">Do you want to close app</string>
     <string name="exit_now">EXIT NOW</string>
     <string name="title_activity_content_travel">ContentTravelActivity</string>
 
     <string name="travel_about">About</string>
-    <string name="travel_tel">Tel</string>
+    <string name="travel_tel">Contact</string>
     <string name="travel_address">Address</string>
 
 </resources>
