@@ -85,7 +85,7 @@ public class ContentTravelActivity extends AppCompatActivity {
 
     void setAllView(Travel travel) {
 
-        txtTel.setText(travel.getTel());
+        txtTel.setText(travel.getContact());
         txtAddress.setText(travel.getDiaChi());
         txtInfo.setText(travel.getMota());
 

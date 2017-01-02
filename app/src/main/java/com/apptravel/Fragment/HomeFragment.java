@@ -1,20 +1,31 @@
 package com.apptravel.Fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apptravel.Activity.ContentTravelActivity;
+import com.apptravel.Adapter.MostViewAdapter;
+import com.apptravel.Customs.CustomTextSliderView;
 import com.apptravel.Databases.MyFireBaseDatabase;
+import com.apptravel.Databases.QueryDatabase;
+import com.apptravel.Entity.Travel;
+import com.apptravel.Events.AsyncResponse;
 import com.apptravel.R;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +35,7 @@ import com.daimajia.slider.library.SliderLayout;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AsyncResponse {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,6 +48,11 @@ public class HomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private SliderLayout mSlider;
+    private RecyclerView mReMostView;
+    private DisplayMetrics displayMetrics;
+    private CustomTextSliderView sliderView;
+    private QueryDatabase queryDatabase;
+    private MostViewAdapter ReMostViewAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -78,24 +94,74 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        queryDatabase = new QueryDatabase();
+        displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
         mSlider = (SliderLayout) view.findViewById(R.id.sliderfragment);
         settingSliderView();
+//        queryDatabase.loadAllData(3, new AsyncResponse() {
+//            @Override
+//            public void onAsyncLoadDone(ArrayList<Travel> listTravel) {
+//                if(listTravel != null)
+//                    addSliderView(listTravel);
+//                else
+//                    Log.d(TAG, "list travel in mslider is null");
+//            }
+//        });
 
-        RecyclerView mReMostView = (RecyclerView) view.findViewById(R.id.rv_most_view_place);
-        MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view, mSlider, mReMostView);
-        myFireBaseDatabase.getDataMostView();
-        myFireBaseDatabase.getDataRecommended();
+        mReMostView = (RecyclerView) view.findViewById(R.id.rv_most_view_place);
+
+        ReMostViewAdapter = new MostViewAdapter(getContext(), new ArrayList<Travel>());
+        mReMostView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), MyFireBaseDatabase.MOSTVIEW_COLUMN));
+        mReMostView.setAdapter(ReMostViewAdapter);
+
+        queryDatabase.loadAllData(this);
+
+//        MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view, mSlider, mReMostView);
+//        myFireBaseDatabase.getDataMostView();
+//        myFireBaseDatabase.getDataRecommended();
+    }
+
+    private void settingRecyclerView(RecyclerView rv, int numberColumn, ArrayList<Travel> listMostViewTravel) {
+        if (rv != null) {
+            Log.i(TAG, "In setting recycler view");
+
+        } else {
+            Log.e(TAG, "Recycler Most View is null");
+        }
     }
 
 
     private void settingSliderView() {
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int devHeight = dm.heightPixels;
-        mSlider.getLayoutParams().height = devHeight / 3;
+        mSlider.getLayoutParams().height = displayMetrics.heightPixels / 3;
         mSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         mSlider.setDuration(4000);
         mSlider.setCustomAnimation(new DescriptionAnimation());
+    }
+
+    private void addSliderView(final ArrayList<Travel> listTravel) {
+
+        if (listTravel != null) {
+            for (Travel travel : listTravel) {
+                sliderView = new CustomTextSliderView(getActivity());
+                sliderView.image(travel.getImg())
+                        .description(travel.getTen())
+                        .setScaleType(BaseSliderView.ScaleType.Fit);
+
+                sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                    @Override
+                    public void onSliderClick(BaseSliderView slider) {
+                        Intent it = new Intent(getActivity(), ContentTravelActivity.class);
+                        it.putExtra(ContentTravelActivity.EXTRA_POSITION, listTravel.get(mSlider.getCurrentPosition()));
+                        startActivity(it);
+                    }
+                });
+                mSlider.addSlider(sliderView);
+            }
+        } else {
+            Log.d(TAG, "list travel is null in Recommeded data");
+        }
     }
 
 
@@ -110,6 +176,21 @@ public class HomeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onAsyncLoadDone(ArrayList<Travel> listTravel) {
+        ArrayList scList = new ArrayList();
+        if (listTravel != null && listTravel.size() > 0) {
+            for(int i = 0; i < 3; ++i) {
+                scList.add(listTravel.get(i));
+            }
+            addSliderView(scList);
+            ReMostViewAdapter.setListTravel(listTravel);
+            ReMostViewAdapter.notifyDataSetChanged();
+        } else {
+            Log.d(TAG, "list travel is null");
+        }
     }
 
     /**

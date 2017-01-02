@@ -4,15 +4,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.apptravel.Adapter.SearchTravelAdapter;
 import com.apptravel.Databases.MyFireBaseDatabase;
+import com.apptravel.Databases.QueryDatabase;
+import com.apptravel.Entity.Travel;
+import com.apptravel.Events.AsyncResponse;
 import com.apptravel.Events.MySearchTextChange;
 import com.apptravel.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +31,7 @@ import com.apptravel.R;
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements TextWatcher, AsyncResponse {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +44,7 @@ public class SearchFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private RecyclerView mSearchView;
     private EditText edtSearchView;
+    private SearchTravelAdapter mReSearchTravelAdapter;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -69,15 +79,17 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mSearchView = (RecyclerView) view.findViewById(R.id.rv_search_travel);
-        final MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view, mSearchView);
         edtSearchView = (EditText) getActivity().findViewById(R.id.edt_search_view);
-        myFireBaseDatabase.getSearchDataByName(true);
-        edtSearchView.addTextChangedListener(new MySearchTextChange(){
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                myFireBaseDatabase.getSearchDataByName(charSequence.toString());
-            }
-        });
+//        final MyFireBaseDatabase myFireBaseDatabase = new MyFireBaseDatabase(getActivity(), view, mSearchView);
+//        myFireBaseDatabase.getSearchDataByName(true);
+
+        mReSearchTravelAdapter = new SearchTravelAdapter(getContext(), new ArrayList<Travel>());
+        mSearchView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mSearchView.setAdapter(mReSearchTravelAdapter);
+
+        /*When user not yet enter contain to search*/
+        new QueryDatabase().searchAllData("", this);
+        edtSearchView.addTextChangedListener(this);
 
     }
 
@@ -100,6 +112,28 @@ public class SearchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        //                myFireBaseDatabase.getSearchDataByName(charSequence.toString());
+        new QueryDatabase().searchAllData(s.toString(),this);
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void onAsyncLoadDone(ArrayList<Travel> listTravel) {
+        mReSearchTravelAdapter.setListTravel(listTravel);
+        mReSearchTravelAdapter.notifyDataSetChanged();
     }
 
     /**

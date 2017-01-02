@@ -36,7 +36,8 @@ public class DrawerMenuAdapter extends ArrayAdapter<DrawerMenuInfo> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(layout, null);
+        if(convertView == null)
+            convertView = inflater.inflate(layout, null);
 
         ImageView imgAvatar = (ImageView)convertView.findViewById(R.id.imgDrawerMenu);
         TextView txtName = (TextView)convertView.findViewById(R.id.txtDrawerMenu);

@@ -7,22 +7,62 @@ import java.io.Serializable;
  */
 
 public class Travel implements Serializable {
+    private String id;
+    private String Ten;
     private String DiaChi;
     private String Mota;
-    private String Tel;
-    private String Ten;
+    private String Contact;
     private String img;
+    private String lowimg;
+    private String Map;
+    private int view;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLowimg() {
+        return lowimg;
+    }
+
+    public void setLowimg(String lowimg) {
+        this.lowimg = lowimg;
+    }
+
+    public String getMap() {
+        return Map;
+    }
+
+    public void setMap(String map) {
+        Map = map;
+    }
+
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
+    public Travel(String id, String ten, String diaChi, String mota, String contact, String img, String lowimg, String map, int view) {
+        this.id = id;
+        Ten = ten;
+        DiaChi = diaChi;
+        Mota = mota;
+        Contact = contact;
+        this.img = img;
+        this.lowimg = lowimg;
+        Map = map;
+        this.view = view;
+    }
 
     public Travel() {
 
-    }
-
-    public Travel(String diachi, String mota, String tel, String ten, String img) {
-        this.DiaChi = diachi;
-        this.Mota = mota;
-        Tel = tel;
-        Ten = ten;
-        this.img = img;
     }
 
     @Override
@@ -49,8 +89,8 @@ public class Travel implements Serializable {
         this.Mota = mota;
     }
 
-    public void setTel(String tel) {
-        Tel = tel;
+    public void setContact(String contact) {
+        Contact = contact;
     }
 
     public void setTen(String ten) {
@@ -70,8 +110,8 @@ public class Travel implements Serializable {
         return Mota;
     }
 
-    public String getTel() {
-        return Tel;
+    public String getContact() {
+        return Contact;
     }
 
     public String getTen() {
@@ -87,7 +127,7 @@ public class Travel implements Serializable {
         return "Travel{" +
                 ", DiaChi='" + DiaChi + '\'' +
                 ", Mota='" + Mota + '\'' +
-                ", Tel='" + Tel + '\'' +
+                ", Contact='" + Contact + '\'' +
                 ", Ten='" + Ten + '\'' +
                 ", img='" + img + '\'' +
                 '}';

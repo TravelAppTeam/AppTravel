@@ -130,7 +130,7 @@
     <string name="transition_viewgroup">card transition</string>
 
     <string name="location">Location </string>
-    <string name="tel">Tel </string>
+    <string name="contact">Tel </string>
     <string name="content_head_image">content head image</string>
 
     <!-- custom dialog mess -->
