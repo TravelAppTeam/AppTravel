@@ -27,11 +27,12 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     private boolean isLastIndicator = false;
     private Boolean fromAboutApp = false;
     public static IntroActivity instance = null;
+    private boolean isFirstLaunch = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        boolean isFirstLaunch = loadSavedPreferances();
+        isFirstLaunch = loadSavedPreferances();
         instance = this;
         try {
             fromAboutApp = getIntent().getExtras().getBoolean(MainActivity.INTRO_BUNDLE_KEY);
@@ -55,7 +56,7 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
 
 
     private void changeActivity() {
-        Intent it = new Intent(this, MainActivity.class);
+        Intent it = new Intent(this, LoaddingActivity.class);
         startActivity(it);
     }
 
@@ -88,7 +89,13 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     }
 
     public void onSkip(View v) {
-        changeActivity();
+          if (isFirstLaunch){
+              changeActivity();
+              finish();
+          }else {
+              onBackPressed();
+              finish();
+          }
     }
 
     public void onNext(View v) {
@@ -124,6 +131,11 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
 }

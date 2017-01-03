@@ -30,6 +30,9 @@
         <activity
             android:name=".Activity.ContentTravelActivity"
             android:label="@string/title_activity_content_travel"
+            android:theme="@style/AppTheme.TranslucentStatut" />
+        <activity
+            android:name=".Activity.LoaddingActivity"
             android:theme="@style/AppTheme.TranslucentStatut"></activity>
     </application>
 
