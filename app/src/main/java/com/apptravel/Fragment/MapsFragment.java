@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.apptravel.R;
 
@@ -119,7 +120,11 @@ public class MapsFragment extends Fragment {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
             Log.d("TAG", "using net");
         }
-        else{Log.d("TAG", "using nothing");}
+        else{
+            Toast.makeText(getActivity(), R.string.turn_gps_on, Toast.LENGTH_SHORT).show();
+            GeoPoint gp = new GeoPoint(10.7680338,106.4141714); // Sai GOn location
+            mMapController.setCenter(gp);
+        }
     }
 
     private boolean isGPS(){
