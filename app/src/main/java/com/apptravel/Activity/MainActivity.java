@@ -202,6 +202,9 @@ public class MainActivity extends AppCompatActivity {
         ((ImageView)mTabLayout.getTabAt(1).getCustomView().findViewById(R.id.img_icon_tab))
                 .getBackground().setColorFilter(legacyTabIconColor, PorterDuff.Mode.SRC_IN);
 
+        ((ImageView)mTabLayout.getTabAt(2).getCustomView().findViewById(R.id.img_icon_tab))
+                .getBackground().setColorFilter(legacyTabIconColor, PorterDuff.Mode.SRC_IN);
+
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -213,6 +216,10 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         edtSearch.setVisibility(View.VISIBLE);
                         toolbar.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        edtSearch.setVisibility(View.GONE);
+                        toolbar.setVisibility(View.VISIBLE);
                         break;
                 }
                 //tab.getIcon().setColorFilter(selectTabIconColor, PorterDuff.Mode.SRC_IN);
