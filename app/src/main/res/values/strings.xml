@@ -24,6 +24,7 @@
     <string-array name="sliding_tab">
         <item>Home</item>
         <item>Search</item>
+        <item>Map</item>
     </string-array>
 
     <!-- Drawer menu -->

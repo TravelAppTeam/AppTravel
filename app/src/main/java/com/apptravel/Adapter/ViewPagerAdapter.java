@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 
 import com.apptravel.Fragment.HomeFragment;
+import com.apptravel.Fragment.MapsFragment;
 import com.apptravel.Fragment.SearchFragment;
 import com.apptravel.R;
 
@@ -28,9 +29,11 @@ import com.apptravel.R;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter{
 
-    private static final int numPage = 2;
+    private static final int numPage = 3;
     private String[] namePage;
-    private int[] imgResID = {R.drawable.ic_home_white_36dp, R.drawable.ic_search_white_36dp};
+    private int[] imgResID = {R.drawable.ic_home_white_36dp,
+                                R.drawable.ic_search_white_36dp,
+                                R.drawable.ic_near_me_white_36dp};
     private Context context;
 
     public ViewPagerAdapter(FragmentManager fm, String[] namePage, Context context) {
@@ -47,6 +50,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
             fragment = new HomeFragment();
         }else if (position == 1){
             fragment = new SearchFragment();
+        }else if (position == 2){
+            fragment = new MapsFragment();
         }
         return fragment;
     }
