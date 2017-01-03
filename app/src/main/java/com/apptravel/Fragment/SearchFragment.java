@@ -20,6 +20,7 @@ import com.apptravel.Entity.Travel;
 import com.apptravel.Events.AsyncResponse;
 import com.apptravel.Events.MySearchTextChange;
 import com.apptravel.R;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,8 @@ public class SearchFragment extends Fragment implements TextWatcher, AsyncRespon
     private RecyclerView mSearchView;
     private EditText edtSearchView;
     private SearchTravelAdapter mReSearchTravelAdapter;
+    private CircularProgressView progressView;
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -87,8 +90,10 @@ public class SearchFragment extends Fragment implements TextWatcher, AsyncRespon
         mSearchView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSearchView.setAdapter(mReSearchTravelAdapter);
 
+        /*loading anim*/
+        progressView = (CircularProgressView) view.findViewById(R.id.cpv_waiting);
         /*When user not yet enter contain to search*/
-        new QueryDatabase().searchAllData("", this);
+        new QueryDatabase(progressView).searchAllData("", this);
         edtSearchView.addTextChangedListener(this);
 
     }
@@ -122,7 +127,8 @@ public class SearchFragment extends Fragment implements TextWatcher, AsyncRespon
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         //                myFireBaseDatabase.getSearchDataByName(charSequence.toString());
-        new QueryDatabase().searchAllData(s.toString(),this);
+
+        new QueryDatabase(progressView).searchAllData(s.toString(),this);
     }
 
     @Override

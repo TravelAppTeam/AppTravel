@@ -1,6 +1,7 @@
 package com.apptravel.Databases;
 
 import com.apptravel.Events.AsyncResponse;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 public class QueryDatabase extends NewDatabase
 {
@@ -13,7 +14,8 @@ public class QueryDatabase extends NewDatabase
     private static final String CONNECT_MUTI_TAG = "&";
     private static final int BASE_LIMIT_LENGTH = 40;
 
-    public QueryDatabase() {
+    public QueryDatabase(CircularProgressView circularProgressView) {
+        super(circularProgressView);
     }
 
     @Override

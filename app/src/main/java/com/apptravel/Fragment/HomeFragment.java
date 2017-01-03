@@ -24,6 +24,7 @@ import com.apptravel.R;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.util.ArrayList;
 
@@ -94,7 +95,7 @@ public class HomeFragment extends Fragment implements AsyncResponse {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        queryDatabase = new QueryDatabase();
+
         displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -109,9 +110,11 @@ public class HomeFragment extends Fragment implements AsyncResponse {
 //                    Log.d(TAG, "list travel in mslider is null");
 //            }
 //        });
+        CircularProgressView progressView = (CircularProgressView) view.findViewById(R.id.cpv_waiting);
+        progressView.startAnimation();
+        queryDatabase = new QueryDatabase(progressView);
 
         mReMostView = (RecyclerView) view.findViewById(R.id.rv_most_view_place);
-
         ReMostViewAdapter = new MostViewAdapter(getContext(), new ArrayList<Travel>());
         mReMostView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), MyFireBaseDatabase.MOSTVIEW_COLUMN));
         mReMostView.setAdapter(ReMostViewAdapter);

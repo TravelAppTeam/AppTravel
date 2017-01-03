@@ -1,10 +1,14 @@
 package com.apptravel.Databases;
 
+import android.animation.ObjectAnimator;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.apptravel.Entity.Travel;
 import com.apptravel.Events.AsyncResponse;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +21,9 @@ import java.util.ArrayList;
 public class NewDatabase {
     private static final String TAG = NewDatabase.class.getSimpleName();
     private AsyncResponse response = null;
-
-    public NewDatabase() {
+    private CircularProgressView circularProgressView;
+    public NewDatabase(CircularProgressView circularProgressView) {
+        this.circularProgressView = circularProgressView;
     }
 
     public void setAsyncResponse(AsyncResponse response) {
@@ -59,6 +64,16 @@ public class NewDatabase {
 
     private class readJson extends AsyncTask<String, Integer, ArrayList<Travel>> {
 
+        @Override
+        protected void onPreExecute() {
+            ObjectAnimator animator = ObjectAnimator.ofInt(circularProgressView, "progress", 0, 200);
+            animator.setInterpolator(new DecelerateInterpolator());
+            if(circularProgressView != null) {
+                circularProgressView.setVisibility(View.VISIBLE);
+                circularProgressView.startAnimation();
+            }
+            super.onPreExecute();
+        }
 
         @Override
         protected ArrayList<Travel> doInBackground(String... params) {
@@ -71,6 +86,10 @@ public class NewDatabase {
             if (listTravel == null) {
                 Log.e(TAG, "List Travel is null");
                 listTravel = new ArrayList<>();
+            }
+            if(circularProgressView != null) {
+                circularProgressView.stopAnimation();
+                circularProgressView.setVisibility(View.GONE);
             }
             if(response != null)
                 response.onAsyncLoadDone(listTravel);

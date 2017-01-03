@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/tv_recommended"
             style="@style/QText"
@@ -18,14 +19,14 @@
             android:text="@string/recommended_place" />
 
         <com.daimajia.slider.library.SliderLayout
-            android:layout_below="@+id/tv_recommended"
             android:id="@+id/sliderfragment"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:paddingTop="5dp"
+            android:layout_below="@+id/tv_recommended"
             android:paddingBottom="5dp"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
+            android:paddingTop="5dp"
             custom:auto_cycle="true"
             custom:indicator_visibility="invisible"
             custom:pager_animation="Accordion"
@@ -34,19 +35,25 @@
         <TextView
             android:id="@+id/tv_most_view_place"
             style="@style/QText"
-            android:text="@string/most_view_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sliderfragment"/>
+            android:layout_below="@+id/sliderfragment"
+            android:text="@string/most_view_place"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_most_view_place"
-            android:layout_below="@id/tv_most_view_place"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="5dp"
+            android:layout_below="@id/tv_most_view_place"
             android:paddingBottom="5dp"
             android:paddingLeft="2dp"
-            android:paddingRight="2dp"/>
+            android:paddingRight="2dp"
+            android:paddingTop="5dp" />
+        <!--loading animation-->
+        <include
+            android:id="@+id/cpv_waiting"
+            layout="@layout/loading_circular_progress" />
     </RelativeLayout>
+
 </FrameLayout>

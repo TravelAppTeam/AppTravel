@@ -13,5 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_search_view"/>
+        <!--loading animation-->
+        <include
+            android:id="@+id/cpv_waiting"
+            layout="@layout/loading_circular_progress" />
     </RelativeLayout>
+
 </FrameLayout>
