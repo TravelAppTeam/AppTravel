@@ -50,7 +50,7 @@ public class MapsDialogFragment extends DialogFragment {
         configMarker();
 
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) map.getLayoutParams();
-        params.rightMargin = 50; params.leftMargin = 50; params.topMargin = 50; params.bottomMargin = 50;
+        params.rightMargin = 10; params.leftMargin = 10; params.topMargin = 10; params.bottomMargin = 10;
 
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);

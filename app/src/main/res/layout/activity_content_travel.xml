@@ -52,8 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar_travel"
+        android:onClick="mapContactOnlick"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_favorite_white_24dp"
-        app:backgroundTint="@android:color/holo_red_light" />
+        app:srcCompat="@drawable/ic_near_me_white_36dp"
+        app:backgroundTint="@color/colorPrimary" />
 
 </android.support.design.widget.CoordinatorLayout>

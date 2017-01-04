@@ -1,9 +1,6 @@
 package com.apptravel.Activity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,41 +15,22 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
-import org.w3c.dom.Text;
+/**
+ * Created by vungho on 04/01/2017.
+ */
 
-public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPageChangeListener {
+public class ReviewIntroActivity extends AppCompatActivity implements ViewPagerEx.OnPageChangeListener{
 
-    private static final String TAG = IntroActivity.class.getSimpleName();
-    private static final String INTRO_PREF_ID = "FirstLaunch";
     int[] listImg = {R.drawable.intro_img_1, R.drawable.intro_img_2, R.drawable.intro_img_3};
     private SliderLayout mSlider;
     private ImageView imNext;
     private TextView txtSkip;
     private boolean isLastIndicator = false;
-    private Boolean fromAboutApp = false;
-    public static IntroActivity instance = null;
-    private boolean isFirstLaunch = false;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        isFirstLaunch = loadSavedPreferances();
-
-        instance = this;
-        try {
-            fromAboutApp = getIntent().getExtras().getBoolean(MainActivity.INTRO_BUNDLE_KEY);
-        }catch (Exception e){
-            Log.e(TAG, "First times open activity");
-            fromAboutApp = false;
-        }
-        if (!fromAboutApp) {
-            if (isFirstLaunch) {
-                savePrefIntro();
-            } else {
-                changeActivity();
-            }
-        }     else {
-        }
 
         mSlider = (SliderLayout) findViewById(R.id.slider);
         imNext = (ImageView) findViewById(R.id.im_next);
@@ -72,13 +50,6 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
                 onSkip();
             }
         });
-
-    }
-
-
-    private void changeActivity() {
-        Intent it = new Intent(IntroActivity.this, MainActivity.class);
-        startActivity(it);
     }
 
     private void addSlider() {
@@ -97,25 +68,13 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
         mSlider.addOnPageChangeListener(this);
     }
 
-    private boolean loadSavedPreferances() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(INTRO_PREF_ID, true);
-    }
-
-    private void savePrefIntro() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(INTRO_PREF_ID, false);
-        editor.apply();
-        editor.commit();
-    }
-
     private void onSkip() {
-        changeActivity();
+       super.onBackPressed();
     }
 
     private void onNext() {
         if (isLastIndicator)
-            changeActivity();
+            super.onBackPressed();
         else
             mSlider.moveNextPosition();
     }
@@ -148,17 +107,4 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     public void onPageScrollStateChanged(int state) {
 
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i("csResume", "IntroActivity");
-    }
-
-
 }

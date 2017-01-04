@@ -88,9 +88,11 @@ public class MainActivity extends AppCompatActivity {
                 drawer.closeDrawer(GravityCompat.START);
                 switch (position) {
                     case 0:
-                        Intent appIntent = new Intent(MainActivity.this, IntroActivity.class);
-                        appIntent.putExtra(INTRO_BUNDLE_KEY, true);
-                        startActivity(appIntent);
+//                        Intent appIntent = new Intent(MainActivity.this, IntroActivity.class);
+//                        appIntent.putExtra(INTRO_BUNDLE_KEY, true);
+//                        startActivity(appIntent);
+                        Intent intent = new Intent(MainActivity.this, ReviewIntroActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
                         Intent usIntent = new Intent(MainActivity.this, AboutUsActivity.class);
@@ -150,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("csResume", "MainActivity");
         if (!isOnline()) {
             showDialog();
             if (mTabLayout.getSelectedTabPosition() == 0) {

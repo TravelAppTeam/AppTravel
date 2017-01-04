@@ -105,17 +105,7 @@
                     android:text="Loading..."
                     android:textSize="16sp" />
             </LinearLayout>
-            <ImageView
-                android:background="@drawable/ic_map_contact_4"
-                android:id="@+id/img_map_contact"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="16dp"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:onClick="mapContactOnlick"/>
+
         </LinearLayout>
 
         <LinearLayout
