@@ -31,9 +31,13 @@
             android:name=".Activity.ContentTravelActivity"
             android:label="@string/title_activity_content_travel"
             android:theme="@style/AppTheme.TranslucentStatut" />
-        <activity
-            android:name=".Activity.LoaddingActivity"
-            android:theme="@style/AppTheme.TranslucentStatut"></activity>
+        <activity android:name=".Activity.LoadingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
