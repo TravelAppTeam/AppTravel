@@ -16,6 +16,7 @@
     <string name="tel">Tel </string>
     <string name="dialog_mess">Xin vui lòng bật kết nối wifi của bạn</string>
     <string name="dialog_title">Không có kết nối internet</string>
+    <string name="turn_gps_on">Bật GPS để lấy vị trí của bạn</string>
 
     <string name="close_app_now">Bạn có muốn đóng ứng dụng không ?</string>
     <string name="exit_now">THOÁT NGAY</string>

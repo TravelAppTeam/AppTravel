@@ -1,14 +1,30 @@
 package com.apptravel.Fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.apptravel.R;
+
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapController;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,8 +37,15 @@ import com.apptravel.R;
 public class MapsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String TAG = MapsFragment.class.getSimpleName();
+    public static final int ZOOM_LEVEL = 10;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private LocationManager locationManager;
+    private MapView map;
+    private Marker marker;
+    private MapController mMapController;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -68,6 +91,64 @@ public class MapsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        map = (MapView) view.findViewById(R.id.map);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setBuiltInZoomControls(true);
+        map.setMultiTouchControls(true);
+        marker = new Marker(map);
+
+        mMapController = (MapController) map.getController();
+        mMapController.setZoom(ZOOM_LEVEL);
+        configMarker();
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        if (isGPS()) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+            Criteria crit = new Criteria();
+            // Location lastLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(crit, false));
+            //Log.d("lastLocation", lastLocation.getLatitude() + "  " + lastLocation.getLongitude());
+            Log.d("TAG", "using gps");
+        }else if(isNetwork()) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+            Log.d("TAG", "using net");
+        }
+        else{
+            Toast.makeText(getActivity(), R.string.turn_gps_on, Toast.LENGTH_SHORT).show();
+            GeoPoint gp = new GeoPoint(10.7680338,106.4141714); // Sai GOn location
+            mMapController.setCenter(gp);
+        }
+    }
+
+    private boolean isGPS(){
+        boolean isGps = false;
+        try {
+            isGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception e){
+            Log.d("","NO GPS found");
+            return false;
+        }
+        return isGps;
+    }
+
+    private boolean isNetwork(){
+        boolean isNetwork = false;
+        try {
+            isNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception e){
+            Log.d(TAG,"NO GPS found");
+            return false;
+        }
+        return isNetwork;
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -80,6 +161,40 @@ public class MapsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    private void configMarker() {
+        marker.setAnchor(Marker.ANCHOR_CENTER,Marker.ANCHOR_BOTTOM);
+        marker.setIcon(getResources().getDrawable(R.drawable.ic_marker_1));
+    }
+
+    private LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            //if(location.getAccuracy() < 30) {
+            if(marker != null)
+                marker.remove(map);
+            map.invalidate();
+            GeoPoint geoPoint = new GeoPoint(location.getLatitude(),location.getLongitude());
+            marker.setPosition(geoPoint);
+            map.getOverlays().add(marker);
+            mMapController.setCenter(geoPoint);
+            // }
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Log.d(TAG, " on onStatusChanged ");
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Log.d(TAG, "on onProviderEnabled ");
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.d(TAG, " on onProviderDisabled ");
+        }
+    };
 
     /**
      * This interface must be implemented by activities that contain this

@@ -5,6 +5,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -16,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apptravel.Entity.Travel;
+import com.apptravel.Fragment.MapsDialogFragment;
 import com.apptravel.R;
 import com.bumptech.glide.Glide;
 
@@ -30,6 +34,7 @@ public class ContentTravelActivity extends AppCompatActivity {
     private DisplayMetrics dm;
     private ImageView imgBtnBack, imageView;
     private Toolbar toolbar;
+    private Travel travel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,7 @@ public class ContentTravelActivity extends AppCompatActivity {
         dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        Travel travel = (Travel) getIntent().getSerializableExtra(EXTRA_POSITION);
+        travel = (Travel) getIntent().getSerializableExtra(EXTRA_POSITION);
         ((CollapsingToolbarLayout)findViewById(R.id.toolbar_layout)).setTitle(travel.getTen());
         ((AppBarLayout)findViewById(R.id.app_bar_travel)).getLayoutParams().height = dm.heightPixels/2;
         imageView = (ImageView)findViewById(R.id.iv_content_travel);
@@ -104,5 +109,17 @@ public class ContentTravelActivity extends AppCompatActivity {
         Animation a = AnimationUtils.loadAnimation(this, animID);
         text.clearAnimation();
         text.startAnimation(a);
+    }
+
+    public void mapContactOnlick(View v){
+        if(travel != null) {
+            if(travel.getMap() != null) {
+                Log.d(TAG,travel.getMap() + "check nul");
+                MapsDialogFragment dialogFragment = MapsDialogFragment.newInstance(travel.getMap());
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                dialogFragment.show(ft,"tag");
+            }
+
+        }
     }
 }

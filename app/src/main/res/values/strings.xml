@@ -55,6 +55,7 @@
     <string name="travel_about">About</string>
     <string name="travel_tel">Contact</string>
     <string name="travel_address">Address</string>
+    <string name="turn_gps_on">Please enable gps for get your location</string>
     <string name="title_activity_loadding">LoaddingActivity</string>
 
 </resources>
