@@ -25,19 +25,12 @@ public class LoadingActivity extends AppCompatActivity {
                 .load(R.drawable.img_loadding)
                 .centerCrop()
                 .into(imgLoading);
-
         final Intent it = new Intent(this,IntroActivity.class);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
               startActivity(it);
             }
-        },2000);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        },1500);
     }
 }

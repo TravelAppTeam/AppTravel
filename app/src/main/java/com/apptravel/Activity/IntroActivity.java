@@ -131,5 +131,4 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     public void onBackPressed() {
         super.onBackPressed();
     }
-
 }
