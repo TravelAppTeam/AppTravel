@@ -18,11 +18,6 @@
         <activity
             android:name=".Activity.IntroActivity"
             android:theme="@style/AppTheme.TranslucentStatut">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.AboutUsActivity"
@@ -31,10 +26,10 @@
             android:name=".Activity.ContentTravelActivity"
             android:label="@string/title_activity_content_travel"
             android:theme="@style/AppTheme.TranslucentStatut" />
-        <activity android:name=".Activity.LoadingActivity">
+        <activity android:name=".Activity.LoadingActivity"
+            android:theme="@style/AppTheme.TranslucentStatut">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

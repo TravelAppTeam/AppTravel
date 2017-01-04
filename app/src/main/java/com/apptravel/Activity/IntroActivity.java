@@ -56,7 +56,7 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
 
 
     private void changeActivity() {
-        Intent it = new Intent(this, LoaddingActivity.class);
+        Intent it = new Intent(IntroActivity.this, MainActivity.class);
         startActivity(it);
     }
 

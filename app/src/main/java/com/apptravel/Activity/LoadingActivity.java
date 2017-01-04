@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.apptravel.R;
+import com.bumptech.glide.Glide;
 
 public class LoadingActivity extends AppCompatActivity {
 
@@ -15,6 +17,15 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         instance = this;
+
+        ImageView imgLoading = (ImageView)findViewById(R.id.imgLoading);
+
+        Glide
+                .with(this)
+                .load(R.drawable.img_loadding)
+                .centerCrop()
+                .into(imgLoading);
+
         final Intent it = new Intent(this,IntroActivity.class);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -22,5 +33,11 @@ public class LoadingActivity extends AppCompatActivity {
               startActivity(it);
             }
         },2000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

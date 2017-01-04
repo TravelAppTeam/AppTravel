@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 finish();
                                 IntroActivity.instance.finish();
-                                LoadingActivity.instance.finish();
                             }
                         }).show();
 

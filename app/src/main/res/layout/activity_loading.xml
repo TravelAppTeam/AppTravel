@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.apptravel.Activity.LoadingActivity">
     <ImageView
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg_placeholder"/>
+        android:id="@+id/imgLoading"/>
 </RelativeLayout>
