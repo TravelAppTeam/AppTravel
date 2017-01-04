@@ -89,13 +89,7 @@ public class IntroActivity extends AppCompatActivity implements ViewPagerEx.OnPa
     }
 
     public void onSkip(View v) {
-          if (isFirstLaunch){
-              changeActivity();
-              finish();
-          }else {
-              onBackPressed();
-              finish();
-          }
+        changeActivity();
     }
 
     public void onNext(View v) {

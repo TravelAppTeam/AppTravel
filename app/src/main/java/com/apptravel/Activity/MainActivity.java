@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         edtSearch.setVisibility(View.GONE);
-                        toolbar.setVisibility(View.VISIBLE);
+                        toolbar.setVisibility(View.GONE);
                         break;
                 }
                 //tab.getIcon().setColorFilter(selectTabIconColor, PorterDuff.Mode.SRC_IN);
