@@ -1,10 +1,12 @@
 package com.apptravel.Fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -36,7 +38,7 @@ import java.util.ArrayList;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements AsyncResponse {
+public class HomeFragment extends Fragment implements AsyncResponse, SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -54,6 +56,8 @@ public class HomeFragment extends Fragment implements AsyncResponse {
     private CustomTextSliderView sliderView;
     private QueryDatabase queryDatabase;
     private MostViewAdapter ReMostViewAdapter;
+    private SwipeRefreshLayout refreshView;
+    private ArrayList<Travel> currentListTravel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -101,15 +105,10 @@ public class HomeFragment extends Fragment implements AsyncResponse {
 
         mSlider = (SliderLayout) view.findViewById(R.id.sliderfragment);
         settingSliderView();
-//        queryDatabase.loadAllData(3, new AsyncResponse() {
-//            @Override
-//            public void onAsyncLoadDone(ArrayList<Travel> listTravel) {
-//                if(listTravel != null)
-//                    addSliderView(listTravel);
-//                else
-//                    Log.d(TAG, "list travel in mslider is null");
-//            }
-//        });
+
+        refreshView = (SwipeRefreshLayout) view.findViewById(R.id.refreshpage_swipe);
+        refreshView.setOnRefreshListener(this);
+        refreshView.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE);
         CircularProgressView progressView = (CircularProgressView) view.findViewById(R.id.cpv_waiting);
         progressView.startAnimation();
         queryDatabase = new QueryDatabase(progressView);
@@ -160,7 +159,8 @@ public class HomeFragment extends Fragment implements AsyncResponse {
                         startActivity(it);
                     }
                 });
-                mSlider.addSlider(sliderView);
+                if (mSlider != null)
+                    mSlider.addSlider(sliderView);
             }
         } else {
             Log.d(TAG, "list travel is null in Recommeded data");
@@ -183,9 +183,10 @@ public class HomeFragment extends Fragment implements AsyncResponse {
 
     @Override
     public void onAsyncLoadDone(ArrayList<Travel> listTravel) {
+        this.currentListTravel = listTravel;
         ArrayList scList = new ArrayList();
         if (listTravel != null && listTravel.size() > 0) {
-            for(int i = 0; i < 3; ++i) {
+            for (int i = 0; i < 3; ++i) {
                 scList.add(listTravel.get(i));
             }
             addSliderView(scList);
@@ -193,6 +194,21 @@ public class HomeFragment extends Fragment implements AsyncResponse {
             ReMostViewAdapter.notifyDataSetChanged();
         } else {
             Log.d(TAG, "list travel is null");
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        if ((currentListTravel.size() < 1 && currentListTravel != null)) {
+            refreshView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    refreshView.setRefreshing(false);
+                    queryDatabase.loadAllData(HomeFragment.this);
+                }
+            }, 1500);
+        } else {
+            refreshView.setRefreshing(false);
         }
     }
 
