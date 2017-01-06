@@ -88,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 drawer.closeDrawer(GravityCompat.START);
                 switch (position) {
                     case 0:
-//                        Intent appIntent = new Intent(MainActivity.this, IntroActivity.class);
-//                        appIntent.putExtra(INTRO_BUNDLE_KEY, true);
-//                        startActivity(appIntent);
                         Intent intent = new Intent(MainActivity.this, ReviewIntroActivity.class);
                         startActivity(intent);
                         break;
@@ -153,14 +150,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i("csResume", "MainActivity");
-        if (!isOnline()) {
-            showDialog();
-            if (mTabLayout.getSelectedTabPosition() == 0) {
-                edtSearch.setVisibility(View.GONE);
-            } else {
-                edtSearch.setVisibility(View.VISIBLE);
-            }
-        }
+//        if (mTabLayout.getSelectedTabPosition() == 0) {
+//            edtSearch.setVisibility(View.GONE);
+//        } else {
+//            edtSearch.setVisibility(View.VISIBLE);
+//        }
     }
 
     @Override
@@ -188,8 +182,6 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-//        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_home_white_48dp);
-//        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_search_white_48dp);
 
         final int legacyTabIconColor = ContextCompat.getColor(getApplication(),
                 R.color.md_green_900);
@@ -227,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setVisibility(View.GONE);
                         break;
                 }
-                //tab.getIcon().setColorFilter(selectTabIconColor, PorterDuff.Mode.SRC_IN);
                 ImageView imageView = (ImageView)(tab.getCustomView()).findViewById(R.id.img_icon_tab);
                 imageView.getBackground().setColorFilter(selectTabIconColor, PorterDuff.Mode.SRC_IN);
                 if (imageView.getDrawable() == null){
@@ -239,7 +230,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                //tab.getIcon().setColorFilter(legacyTabIconColor, PorterDuff.Mode.SRC_IN);
                 ((ImageView)tab.getCustomView().findViewById(R.id.img_icon_tab)).getBackground().
                        setColorFilter(legacyTabIconColor, PorterDuff.Mode.SRC_IN);
             }
@@ -275,36 +265,4 @@ public class MainActivity extends AppCompatActivity {
         listAbout.setAdapter(aboutAdapter);
     }
 
-    public boolean isOnline() {
-        ConnectivityManager conManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = conManager.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    private void showDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.dialog_title));
-        builder.setMessage(getString(R.string.dialog_mess));
-
-        builder.setPositiveButton("Yes",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                        startActivity(intent);
-                        dialog.cancel();
-                    }
-                });
-        builder.setNegativeButton("No",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alertDialog = builder.create();
-        builder.show();
-    }
 }
